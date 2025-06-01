@@ -44,6 +44,10 @@ A modular, developer-friendly Python raycasting engine template for retro-style 
 
 ## Changelog
 
+### v0.8.0
+- Added keyboard input handling to InputHandler for player movement (WASD and arrow keys).
+- Codebase remains PEP8-compliant and ready for further expansion.
+
 ### v0.7.1
 - Patch release: Update dependency constraints for Black and Python 3.9+ compatibility.
 
