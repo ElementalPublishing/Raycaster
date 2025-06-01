@@ -12,7 +12,12 @@ class Renderer:
         self.player = player
         self.config = config
         self.plugins = []
-        # TODO: Initialize graphics context (e.g., pygame)
+        # Initialize graphics context (pygame)
+        import pygame
+        pygame.init()
+        self.screen = pygame.display.set_mode(self.config.resolution)
+        pygame.display.set_caption("Raycaster Engine")
+        self.clock = pygame.time.Clock()
 
     def register_plugin(self, plugin: RendererPlugin):
         """Register a renderer plugin."""
