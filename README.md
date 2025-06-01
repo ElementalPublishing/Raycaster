@@ -26,11 +26,19 @@ A modular, developer-friendly Python raycasting engine template for retro-style 
 ## Getting Started
 
 1. **Install dependencies**  
-   (e.g., `pygame`: `pip install pygame`)
+   ```sh
+   poetry install
+   ```
+
 2. **Run the engine**  
    ```sh
-   python -m raycaster.main
+   poetry run python -m raycaster.main
    ```
+   or, if you set up the script entry point:
+   ```sh
+   poetry run raycaster
+   ```
+
 3. **Customize**  
    Edit the modules to add features, logic, and rendering.
 
