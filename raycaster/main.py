@@ -1,6 +1,7 @@
 """
 Example entry point: sets up the engine and runs the game.
 """
+
 from .engine import RaycastingEngine
 from .config import EngineConfig
 
