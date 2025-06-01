@@ -36,8 +36,30 @@ A modular, developer-friendly Python raycasting engine template for retro-style 
 
 ## Changelog
 
-### v0.2.0
+### v0.6.0
+- Added support for loading map files from JSON, enabling easy map editing and expansion.
+- Clarified and documented the recommended project folder structure (`assets/maps/`).
+- Improved configuration: map file path is now set via `config.map_path`.
+- Updated documentation and code comments for better usability.
 
+### v0.5.0
+- Added a main engine loop with proper event handling and frame limiting.
+- The engine window now stays open and responds to user input/events.
+- Integrated input processing and player updates into the main loop.
+- Improved overall engine structure for future expansion.
+- Project version and dependencies updated in `pyproject.toml`.
+
+### v0.4.0
+- Graphics context initialization with `pygame`—the engine now opens a window and is ready for rendering.
+- Improved renderer structure for future extensibility and plugin support.
+- Project now fully managed with Poetry for easier dependency and package management.
+- General code cleanup and preparation for next development steps.
+
+### v0.3.0
+- Improved entry point with command-line argument parsing (resolution, map, FPS counter).
+- Users can now toggle plugins and set options from the command line.
+
+### v0.2.0
 - Introduced a flexible plugin system for the renderer, allowing easy extension and customization.
 - Scaffolded an advanced renderer architecture to support future features and plugins.
 - Added an example FPS counter plugin.
