@@ -1,3 +1,24 @@
+[tool.poetry]
+name = "raycaster-engine"
+version = "0.3.0"
+description = "A modular, developer-friendly Python raycasting engine template for retro-style shooters."
+authors = ["Elemental Publishing <houser2388@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/ElementalPublishing/Raycaster"
+homepage = "https://github.com/ElementalPublishing/Raycaster"
+keywords = ["raycaster", "engine", "python", "retro", "shooter"]
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+pygame = "*"
+
+[tool.poetry.scripts]
+raycaster = "raycaster.main:main"
+
+[[tool.poetry.packages]]
+include = "raycaster"
+
 [build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
