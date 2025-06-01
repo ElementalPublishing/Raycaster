@@ -44,6 +44,12 @@ A modular, developer-friendly Python raycasting engine template for retro-style 
 
 ## Changelog
 
+### v0.7.0
+- Raised minimum Python version to 3.12.0 for modern language features and compatibility.
+- Added Black as a development dependency for automatic code formatting.
+- Applied PEP8 formatting and improved code style across all modules.
+- Updated documentation and project configuration for clarity and maintainability.
+
 ### v0.6.0
 - Added support for loading map files from JSON, enabling easy map editing and expansion.
 - Clarified and documented the recommended project folder structure (`assets/maps/`).
