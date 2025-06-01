@@ -44,6 +44,9 @@ A modular, developer-friendly Python raycasting engine template for retro-style 
 
 ## Changelog
 
+### v0.7.1
+- Patch release: Update dependency constraints for Black and Python 3.9+ compatibility.
+
 ### v0.7.0
 - Raised minimum Python version to 3.12.0 for modern language features and compatibility.
 - Added Black as a development dependency for automatic code formatting.
