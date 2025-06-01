@@ -10,13 +10,12 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Elemental Publishing",
-    author_email="your@email.com",
+    author_email="houser2388@gmail.com",
     url="https://github.com/ElementalPublishing/Raycaster",
     license="MIT",
     packages=find_packages(),
     install_requires=[
-        # Add your dependencies here, e.g.:
-        # "pygame",
+        "pygame",
     ],
     entry_points={
         "console_scripts": [
