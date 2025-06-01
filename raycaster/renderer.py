@@ -2,10 +2,25 @@
 Raycasting renderer: handles drawing the scene from the player's perspective.
 """
 
+import os
+import pygame
+from concurrent.futures import ProcessPoolExecutor
 from .map import GameMap
 from .player import Player
 from .config import EngineConfig
 from .plugin import RendererPlugin
+
+
+def raycast_column(args):
+    """
+    Standalone function for raycasting a single vertical column.
+    Must be at module level for ProcessPoolExecutor.
+    Replace this logic with your actual raycasting.
+    """
+    x, width = args
+    # Example: return a color based on x (replace with real raycasting)
+    color = (x % 255, 100, 255 - (x % 255))
+    return x, color
 
 
 class Renderer:
@@ -14,13 +29,11 @@ class Renderer:
         self.player = player
         self.config = config
         self.plugins = []
-        # Initialize graphics context (pygame)
-        import pygame
-
         pygame.init()
         self.screen = pygame.display.set_mode(self.config.resolution)
         pygame.display.set_caption("Raycaster Engine")
         self.clock = pygame.time.Clock()
+        self.num_workers = getattr(config, "num_workers", os.cpu_count() or 1)
 
     def register_plugin(self, plugin: RendererPlugin):
         """Register a renderer plugin."""
@@ -28,13 +41,22 @@ class Renderer:
 
     def render_frame(self):
         """
-        Perform raycasting and draw a single frame.
+        Perform raycasting and draw a single frame using multi-core support.
         """
         # Call pre-render hooks
         for plugin in self.plugins:
             plugin.pre_render(self)
 
-        # TODO: Actual raycasting and drawing logic here
+        width, height = self.config.resolution
+        columns = [(x, width) for x in range(width)]
+
+        # Parallel raycasting using ProcessPoolExecutor
+        with ProcessPoolExecutor(max_workers=self.num_workers) as executor:
+            results = list(executor.map(raycast_column, columns))
+
+        # Draw the results
+        for x, color in results:
+            pygame.draw.line(self.screen, color, (x, 0), (x, height - 1))
 
         # Call post-render hooks
         for plugin in self.plugins:
