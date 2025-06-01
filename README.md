@@ -44,6 +44,10 @@ A modular, developer-friendly Python raycasting engine template for retro-style 
 
 ## Changelog
 
+### v0.9.1
+- Patch release: Fixed packaging issue where `renderer.py` was not properly saved, resulting in the old version being included in the package.
+
+
 ### v0.9.0
 - Renderer now uses ProcessPoolExecutor for multi-core raycasting, enabling efficient parallel rendering on modern CPUs.
 - Improved performance and scalability for a wide range of hardware.
