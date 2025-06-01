@@ -1,6 +1,7 @@
 from ..plugin import RendererPlugin
 import time
 
+
 class FPSCounterPlugin(RendererPlugin):
     def __init__(self):
         self.last_time = time.time()

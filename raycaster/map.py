@@ -1,8 +1,10 @@
 """
 GameMap: handles map data, loading, and collision logic.
 """
+
 from typing import Tuple, List
 import json
+
 
 class GameMap:
     def __init__(self, map_path: str):

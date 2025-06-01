@@ -1,10 +1,12 @@
 """
 Raycasting renderer: handles drawing the scene from the player's perspective.
 """
+
 from .map import GameMap
 from .player import Player
 from .config import EngineConfig
 from .plugin import RendererPlugin
+
 
 class Renderer:
     def __init__(self, game_map: GameMap, player: Player, config: EngineConfig):
@@ -14,6 +16,7 @@ class Renderer:
         self.plugins = []
         # Initialize graphics context (pygame)
         import pygame
+
         pygame.init()
         self.screen = pygame.display.set_mode(self.config.resolution)
         pygame.display.set_caption("Raycaster Engine")

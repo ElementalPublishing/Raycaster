@@ -1,7 +1,9 @@
 """
 Player: handles player state and movement.
 """
+
 from typing import Tuple
+
 
 class Player:
     def __init__(self, start_pos: Tuple[float, float]):

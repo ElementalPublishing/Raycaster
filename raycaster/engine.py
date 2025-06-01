@@ -1,12 +1,14 @@
 """
 Main game engine loop and application entry point.
 """
+
 from .renderer import Renderer
 from .map import GameMap
 from .player import Player
 from .input import InputHandler
 from .config import EngineConfig
 import pygame
+
 
 class RaycastingEngine:
     def __init__(self, config: EngineConfig):

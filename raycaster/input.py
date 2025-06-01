@@ -1,7 +1,9 @@
 """
 InputHandler: processes user input and updates player actions.
 """
+
 from .player import Player
+
 
 class InputHandler:
     def __init__(self, player: Player):
