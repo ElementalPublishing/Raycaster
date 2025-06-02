@@ -33,68 +33,69 @@ A modular, developer-friendly Python raycasting engine template for retro-style 
 ## Project Structure
 
 ```
-raycaster/
+Raycaster/                        # Project root (repo root)
 │
-├── backend/                      # Performance-critical routines (Cython only)
-│   ├── __init__.py               # Backend interface/loader
-│   ├── cython_backend.pyx        # Cython backend (compiled for speed)
-│   └── api.py                    # Python API for backend (defines interface, docstrings)
+├── pyproject.toml                # Build and dependency config (root)
+├── README.md                     # Project overview and instructions (root)
+├── CONTRIBUTING.md               # Contribution guidelines (root)
+├── LICENSE                       # License file (root)
+├── .gitignore                    # Git ignore rules (root)
 │
-├── core/                         # Main engine logic and orchestration
-│   ├── __init__.py
-│   ├── engine.py
-│   ├── renderer.py
-│   ├── map.py
-│   ├── player.py
-│   ├── input.py
-│   ├── config.py
-│   └── events.py
-│
-├── plugins/                      # Example and custom renderer plugins
-│   ├── __init__.py
-│   └── example_plugin.py
-│
-├── assets/                       # Maps, textures, audio, etc.
-│   ├── maps/
-│   │   └── example.json
-│   ├── textures/
-│   ├── audio/
-│   └── ...
-│
-├── shared/                       # Utilities, math, helpers
-│   ├── __init__.py
-│   ├── utils.py
-│   └── math.py
-│
-├── ui/                           # UI, HUD, menus, overlays
-│   ├── __init__.py
-│   ├── hud.py
-│   └── menu.py
-│
-├── tests/                        # Unit and integration tests
-│   └── ...
-│
-├── examples/                     # Example games, scripts, or demos
-│   └── ...
-│
-├── docs/                         # Documentation, guides, architecture diagrams
-│   └── ...
-│
-├── main.py                       # Entry point
-├── pyproject.toml
-├── README.md
-├── CONTRIBUTING.md
-├── LICENSE
-└── .gitignore
+└── raycaster/                    # Main Python package and all engine code
+    │
+    ├── backend/                  # Performance-critical routines (Cython only)
+    │   ├── __init__.py           # Backend interface/loader
+    │   ├── cython_backend.pyx    # Cython backend (compiled for speed)
+    │   └── api.py                # Python API for backend (defines interface, docstrings)
+    │
+    ├── core/                     # Main engine logic and orchestration
+    │   ├── __init__.py
+    │   ├── engine.py
+    │   ├── renderer.py
+    │   ├── map.py
+    │   ├── player.py
+    │   ├── input.py
+    │   ├── config.py
+    │   └── events.py
+    │
+    ├── plugins/                  # Example and custom renderer plugins
+    │   ├── __init__.py
+    │   └── example_plugin.py
+    │
+    ├── assets/                   # Maps, textures, audio, etc.
+    │   ├── maps/
+    │   │   └── example.json
+    │   ├── textures/
+    │   ├── audio/
+    │   └── ...
+    │
+    ├── shared/                   # Utilities, math, helpers
+    │   ├── __init__.py
+    │   ├── utils.py
+    │   └── math.py
+    │
+    ├── ui/                       # UI, HUD, menus, overlays
+    │   ├── __init__.py
+    │   ├── hud.py
+    │   └── menu.py
+    │
+    ├── tests/                    # Unit and integration tests
+    │   └── ...
+    │
+    ├── examples/                 # Example games, scripts, or demos
+    │   └── ...
+    │
+    ├── docs/                     # Documentation, guides, architecture diagrams
+    │   └── ...
+    │
+    ├── main.py                   # Entry point
+    ├── plugin.py                 # Plugin system core
+    └── ...
 ```
 
-- **backend/**: All performance-critical code is written in Cython (`cython_backend.pyx`). The `api.py` file defines the backend interface and documents how to extend or modify backend routines. Only Cython is supported for backend optimization, making it easy for Python developers to contribute and mod.
-- **core/**: All game logic, orchestration, and engine features remain in Python for maximum flexibility and developer friendliness.
-- **plugins/**: Drop Python scripts in `plugins/` to add overlays, effects, or new renderers.
-- **assets/**: Place maps, textures, and sounds in the `assets/` folder.
-- **shared/**: Utilities and helpers for use across the engine.
-- **ui/**: User interface, HUD, and menu code.
-- **tests/**, **examples/**, **docs/**: For testing, demos, and documentation.
+- **All configuration and documentation files** (`pyproject.toml`, `README.md`, `CONTRIBUTING.md`, `LICENSE`, `.gitignore`) are in the **project root**.
+- **All code, assets, and engine modules** are inside the `raycaster/` package directory.
+- This structure matches your GitHub repository and is ready for packaging and distribution.
 
 ---
 
@@ -185,7 +186,7 @@ class RendererPlugin:
 - Requires **Python 3.12+** and [Poetry](https://python-poetry.org/).
 - Uses only cross-platform libraries (e.g., `pygame`).
 - Multi-core rendering uses Python’s `concurrent.futures` for best performance on all modern CPUs.
-- No native dependencies required by default; optional backend folder for future C/C++/Rust modules.
+- No native dependencies required by default; backend uses Cython for speed.
 
 ---
 
