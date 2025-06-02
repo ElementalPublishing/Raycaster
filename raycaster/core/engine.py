@@ -7,7 +7,9 @@ from .map import GameMap
 from .player import Player
 from .config import EngineConfig
 from .interfaces import BaseRenderer, BaseInputHandler
+from .renderer import Renderer  # <-- Import your Renderer here
 from typing import Callable, List
+# Only import additional modules here if you use them in this file
 
 
 class RaycastingEngine:
@@ -21,6 +23,9 @@ class RaycastingEngine:
             from .pygame_backend import PygameRenderer, PygameInputHandler
             self.renderer: BaseRenderer = PygameRenderer(self.map, self.player, config)
             self.input_handler: BaseInputHandler = PygameInputHandler(self.player)
+        elif backend == "renderer":
+            self.renderer: BaseRenderer = Renderer(self.map, self.player, config)
+            self.input_handler: BaseInputHandler = None  # Set this to your input handler if needed
         # Future: add elif blocks for other backends (pyglet, moderngl, etc.)
         else:
             raise ValueError(f"Unknown backend: {backend}")

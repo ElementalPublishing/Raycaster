@@ -28,7 +28,7 @@ class Renderer:
         self.game_map = game_map
         self.player = player
         self.config = config
-        self.plugins = []
+        self.plugins: list[RendererPlugin] = []
         pygame.init()
         self.screen = pygame.display.set_mode(self.config.resolution)
         pygame.display.set_caption("Raycaster Engine")
@@ -53,7 +53,8 @@ class Renderer:
 
         # Call pre-render hooks
         for plugin in self.plugins:
-            plugin.pre_render(self)
+            if hasattr(plugin, "pre_render"):
+                plugin.pre_render(self)
 
         width, height = self.config.resolution
         columns = [(x, width) for x in range(width)]
@@ -68,4 +69,5 @@ class Renderer:
 
         # Call post-render hooks
         for plugin in self.plugins:
-            plugin.post_render(self)
+            if hasattr(plugin, "post_render"):
+                plugin.post_render(self)

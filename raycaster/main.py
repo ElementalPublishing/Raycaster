@@ -4,9 +4,8 @@ Allows configuration via command-line arguments and plugin selection.
 """
 
 import argparse
-from .engine import RaycastingEngine
-from .config import EngineConfig
-from .plugins.fps_counter import FPSCounterPlugin
+from .core.engine import RaycastingEngine
+from .core.config import EngineConfig
 
 
 def main():
@@ -31,9 +30,6 @@ def main():
 
     config = EngineConfig(resolution=(width, height), map_path=args.map)
     engine = RaycastingEngine(config)
-
-    if args.fps:
-        engine.renderer.register_plugin(FPSCounterPlugin())
 
     print(f"Starting Raycaster Engine at {width}x{height} with map {args.map}")
     engine.run()
