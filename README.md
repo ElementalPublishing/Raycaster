@@ -2,26 +2,104 @@
 
 A modular, developer-friendly Python raycasting engine template for retro-style shooters.
 
+---
+
 ## Features
 
+- Cross-platform: Runs on Windows, macOS, and Linux (Python 3.12+)
 - Configurable resolution and field of view (FOV)
-- Modular codebase for easy extension
-- **Plugin system** for renderer customization and overlays
-- Advanced renderer architecture for future features
+- Modular codebase for easy extension and maintenance
+- **Plugin system** for renderer customization, overlays, and even full rendering override
+- Advanced renderer architecture (multi-core support, future GPU/extension ready)
 - Map loading from JSON files
 - Player movement and collision detection
 - Designed for learning, prototyping, and retro game development
 
+---
+
+## Developer Experience
+
+- **Clear, documented code:** All modules include docstrings and inline comments.
+- **Type hints everywhere:** For better editor support and fewer bugs.
+- **Hot-reload plugins:** Drop new Python files in `plugins/` and see changes on restart.
+- **Minimal setup:** One command to install, one to run.
+- **Extensive examples:** See `plugins/` and `assets/maps/` for ready-to-use templates.
+- **Easy debugging:** Modular design means you can test or swap out any subsystem.
+- **Contributing guide:** See [CONTRIBUTING.md](CONTRIBUTING.md) for how to add features or report issues.
+- **Active changelog:** Stay up to date with every release.
+
+---
+
 ## Project Structure
 
-- `engine.py` — Main engine loop and core logic
-- `renderer.py` — Raycasting renderer (now supports plugins)
-- `map.py` — Map loading and collision detection
-- `player.py` — Player state and movement
-- `input.py` — Input handling
-- `config.py` — Engine configuration
-- `main.py` — Example entry point
-- `plugins/` — Example and custom renderer plugins
+```
+raycaster/
+│
+├── backend/                # (Optional) Native or performance-critical modules
+│   └── ...
+├── core/                   # Main engine logic and orchestration
+│   ├── engine.py
+│   ├── renderer.py         # Raycasting renderer (plugin-ready, multi-core, overrideable)
+│   ├── map.py
+│   ├── player.py
+│   ├── input.py
+│   ├── config.py
+│   └── events.py
+├── plugins/                # Example and custom renderer plugins
+│   ├── __init__.py
+│   └── example_plugin.py
+├── assets/                 # Maps, textures, audio, etc.
+│   ├── maps/
+│   │   └── example.json
+│   ├── textures/
+│   ├── audio/
+│   └── ...
+├── shared/                 # Utilities, math, helpers
+│   ├── utils.py
+│   └── math.py
+├── ui/                     # UI, HUD, menus, overlays
+│   ├── hud.py
+│   └── menu.py
+├── tests/                  # Unit and integration tests
+│   └── ...
+├── examples/               # Example games, scripts, or demos
+│   └── ...
+├── docs/                   # Documentation, guides, architecture diagrams
+│   └── ...
+├── main.py                 # Entry point
+├── pyproject.toml
+├── README.md
+├── CONTRIBUTING.md
+├── LICENSE
+└── .gitignore
+```
+
+- **Modular:** Each subsystem is in its own file/folder for clarity and easy extension.
+- **Plugins:** Drop Python scripts in `plugins/` to add overlays, effects, new renderers, or even fully override rendering.
+- **Assets:** Place maps, textures, and sounds in the `assets/` folder.
+
+---
+
+## Plugin Rendering Override
+
+The engine now supports **full rendering override by plugins**.  
+If a plugin implements a `render_override(renderer)` method and returns `True`, the default rendering is skipped and the plugin takes full control of the frame rendering.
+
+**Example plugin interface:**
+```python
+class RendererPlugin:
+    def pre_render(self, renderer):
+        pass
+
+    def post_render(self, renderer):
+        pass
+
+    def render_override(self, renderer):
+        # Return True to skip default rendering
+        return False
+```
+
+---
 
 ## Getting Started
 
@@ -40,61 +118,43 @@ A modular, developer-friendly Python raycasting engine template for retro-style 
    ```
 
 3. **Customize**  
-   Edit the modules to add features, logic, and rendering.
+   - Edit modules or add plugins in `plugins/` to extend features and rendering.
+   - Add new maps to `assets/maps/` (JSON format).
 
-## Changelog
+---
 
-### v0.9.1
-- Patch release: Fixed packaging issue where `renderer.py` was not properly saved, resulting in the old version being included in the package.
+## Quickstart
 
+1. Clone the repo and install dependencies:
+   ```sh
+   git clone https://github.com/yourname/raycaster.git
+   cd raycaster
+   poetry install
+   ```
 
-### v0.9.0
-- Renderer now uses ProcessPoolExecutor for multi-core raycasting, enabling efficient parallel rendering on modern CPUs.
-- Improved performance and scalability for a wide range of hardware.
+2. Run the engine:
+   ```sh
+   poetry run python -m raycaster.main
+   ```
+   or, if you set up the script entry point:
+   ```sh
+   poetry run raycaster
+   ```
 
+3. Customize:
+   - Edit modules or add plugins in `plugins/` to extend features and rendering.
+   - Add new maps to `assets/maps/` (JSON format).
 
-### v0.8.0
-- Added keyboard input handling to InputHandler for player movement (WASD and arrow keys).
-  
+---
 
-### v0.7.1
-- Patch release: Update dependency constraints for Black and Python 3.9+ compatibility.
+## Cross-Platform Notes
 
-### v0.7.0
-- Raised minimum Python version to 3.12.0 for modern language features and compatibility.
-- Added Black as a development dependency for automatic code formatting.
-- Applied PEP8 formatting and improved code style across all modules.
-- Updated documentation and project configuration for clarity and maintainability.
+- Requires **Python 3.12+** and [Poetry](https://python-poetry.org/).
+- Uses only cross-platform libraries (e.g., `pygame`).
+- Multi-core rendering uses Python’s `concurrent.futures` for best performance on all modern CPUs.
+- No native dependencies required by default; optional backend folder for future C/C++/Rust modules.
 
-### v0.6.0
-- Added support for loading map files from JSON, enabling easy map editing and expansion.
-- Clarified and documented the recommended project folder structure (`assets/maps/`).
-- Improved configuration: map file path is now set via `config.map_path`.
-- Updated documentation and code comments for better usability.
-
-### v0.5.0
-- Added a main engine loop with proper event handling and frame limiting.
-- The engine window now stays open and responds to user input/events.
-- Integrated input processing and player updates into the main loop.
-- Improved overall engine structure for future expansion.
-- Project version and dependencies updated in `pyproject.toml`.
-
-### v0.4.0
-- Graphics context initialization with `pygame`—the engine now opens a window and is ready for rendering.
-- Improved renderer structure for future extensibility and plugin support.
-- Project now fully managed with Poetry for easier dependency and package management.
-- General code cleanup and preparation for next development steps.
-
-### v0.3.0
-- Improved entry point with command-line argument parsing (resolution, map, FPS counter).
-- Users can now toggle plugins and set options from the command line.
-
-### v0.2.0
-- Introduced a flexible plugin system for the renderer, allowing easy extension and customization.
-- Scaffolded an advanced renderer architecture to support future features and plugins.
-- Added an example FPS counter plugin.
-- Improved code modularity and scalability for future development.
-- Updated documentation and project structure.
+---
 
 ## Contributing
 
@@ -102,6 +162,8 @@ A modular, developer-friendly Python raycasting engine template for retro-style 
 - Use type hints and docstrings.
 - Add examples for new features.
 - Open issues or pull requests for suggestions and improvements.
+
+---
 
 ## License
 

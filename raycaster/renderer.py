@@ -42,7 +42,15 @@ class Renderer:
     def render_frame(self):
         """
         Perform raycasting and draw a single frame using multi-core support.
+        Allows plugins to override the entire rendering process.
         """
+        # Check if any plugin wants to override rendering
+        for plugin in self.plugins:
+            if hasattr(plugin, "render_override") and callable(plugin.render_override):
+                if plugin.render_override(self):
+                    # If plugin returns True, skip default rendering
+                    return
+
         # Call pre-render hooks
         for plugin in self.plugins:
             plugin.pre_render(self)
