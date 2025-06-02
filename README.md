@@ -220,55 +220,9 @@ This project is licensed under the MIT License. See [LICENSE](../LICENSE) for de
 - **Cross-platform:** Works on Windows, macOS, and Linux (Python 3.12+).
 - **Easy modding:** Backend and plugins are easy to extend and customize, inspired by popular moddable games.
 
-### v0.9.0
-- Renderer now uses ProcessPoolExecutor for multi-core raycasting, enabling efficient parallel rendering on modern CPUs.
-- Improved performance and scalability for a wide range of hardware.
-
-### v0.8.0
-- Added keyboard input handling to InputHandler for player movement (WASD and arrow keys).
-
-### v0.7.1
-- Patch release: Update dependency constraints for Black and Python 3.9+ compatibility.
-
-### v0.7.0
-- Raised minimum Python version to 3.12.0 for modern language features and compatibility.
-- Added Black as a development dependency for automatic code formatting.
-- Applied PEP8 formatting and improved code style across all modules.
-- Updated documentation and project configuration for clarity and maintainability.
-
-### v0.6.0
-- Added support for loading map files from JSON, enabling easy map editing and expansion.
-- Clarified and documented the recommended project folder structure (`assets/maps/`).
-- Improved configuration: map file path is now set via `config.map_path`.
-- Updated documentation and code comments for better usability.
-
-### v0.5.0
-- Added a main engine loop with proper event handling and frame limiting.
-- The engine window now stays open and responds to user input/events.
-- Integrated input processing and player updates into the main loop.
-- Improved overall engine structure for future expansion.
-- Project version and dependencies updated in `pyproject.toml`.
-
-### v0.4.0
-- Graphics context initialization with `pygame`—the engine now opens a window and is ready for rendering.
-- Improved renderer structure for future extensibility and plugin support.
-- Project now fully managed with Poetry for easier dependency and package management.
-- General code cleanup and preparation for next development steps.
-
-### v0.3.0
-- Improved entry point with command-line argument parsing (resolution, map, FPS counter).
-- Users can now toggle plugins and set options from the command line.
-
-### v0.2.0
-- Introduced a flexible plugin system for the renderer, allowing easy extension and customization.
-- Scaffolded an advanced renderer architecture to support future features and plugins.
-- Added an example FPS counter plugin.
-- Improved code modularity and scalability for future development.
-- Updated documentation and project structure.
-
 ---
 
-### 0.9.1
+### v0.9.1
 - Initial modular structure established.
 - Plugin system introduced for renderer customization.
 - Added hot-reload support for plugins.
@@ -279,7 +233,44 @@ This project is licensed under the MIT License. See [LICENSE](../LICENSE) for de
 
 ---
 
-### 0.5.0
+### v0.9.0
+- Renderer now uses ProcessPoolExecutor for multi-core raycasting, enabling efficient parallel rendering on modern CPUs.
+- Improved performance and scalability for a wide range of hardware.
+
+---
+
+### v0.8.0
+- Added keyboard input handling to InputHandler for player movement (WASD and arrow keys).
+
+---
+
+### v0.7.1
+- Patch release: Update dependency constraints for Black and Python 3.9+ compatibility.
+
+---
+
+### v0.7.0
+- Raised minimum Python version to 3.12.0 for modern language features and compatibility.
+- Added Black as a development dependency for automatic code formatting.
+- Applied PEP8 formatting and improved code style across all modules.
+- Updated documentation and project configuration for clarity and maintainability.
+
+---
+
+### v0.6.0
+- Added support for loading map files from JSON, enabling easy map editing and expansion.
+- Clarified and documented the recommended project folder structure (`assets/maps/`).
+- Improved configuration: map file path is now set via `config.map_path`.
+- Updated documentation and code comments for better usability.
+
+---
+
+### v0.5.0
+- Added a main engine loop with proper event handling and frame limiting.
+- The engine window now stays open and responds to user input/events.
+- Integrated input processing and player updates into the main loop.
+- Improved overall engine structure for future expansion.
+- Project version and dependencies updated in `pyproject.toml`.
 - Added multi-core rendering support.
 - Improved asset management and map loading.
 - Enhanced player movement and collision detection.
@@ -288,7 +279,17 @@ This project is licensed under the MIT License. See [LICENSE](../LICENSE) for de
 
 ---
 
-### 0.3.0
+### v0.4.0
+- Graphics context initialization with `pygame`—the engine now opens a window and is ready for rendering.
+- Improved renderer structure for future extensibility and plugin support.
+- Project now fully managed with Poetry for easier dependency and package management.
+- General code cleanup and preparation for next development steps.
+
+---
+
+### v0.3.0
+- Improved entry point with command-line argument parsing (resolution, map, FPS counter).
+- Users can now toggle plugins and set options from the command line.
 - Introduced UI and HUD modules.
 - Added shared utilities and math helpers.
 - Improved code organization and modularity.
@@ -296,7 +297,17 @@ This project is licensed under the MIT License. See [LICENSE](../LICENSE) for de
 
 ---
 
-### 0.1.0
+### v0.2.0
+- Introduced a flexible plugin system for the renderer, allowing easy extension and customization.
+- Scaffolded an advanced renderer architecture to support future features and plugins.
+- Added an example FPS counter plugin.
+- Improved code modularity and scalability for future development.
+- Updated documentation and project structure.
+
+---
+
+### v0.1.0
+- Initial commit.
 - Project initialized.
 - Basic raycasting engine implemented in Python.
 - Simple map and player movement.
