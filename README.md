@@ -207,6 +207,13 @@ This project is licensed under the MIT License. See [LICENSE](../LICENSE) for de
 
 ## Changelog
 
+### v0.11.0
+- Refactored engine core to support pluggable backends for rendering and input.
+- Added backend abstraction layer (`interfaces.py`) for easy integration of new libraries (e.g., pygame, pyglet, moderngl).
+- Engine now dynamically loads the selected backend at runtime.
+- Improved extensibility and modularity for future graphics/input/audio backends.
+- Updated error handling and plugin hook system for robustness.
+
 ### v0.10.0
 - **Added support for a modular Cython backend:** Performance-critical routines can now be implemented in Cython for improved speed and Python developer accessibility.
 - **Modular backend API:** All backend routines are defined in `backend/api.py` with clear docstrings and type hints, making it easy to extend or optimize.
