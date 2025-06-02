@@ -1,39 +1,93 @@
 """
 Main game engine loop and application entry point.
+Supports pluggable backends for rendering and input.
 """
 
-from .renderer import Renderer
 from .map import GameMap
 from .player import Player
-from .input import InputHandler
 from .config import EngineConfig
-import pygame
+from .interfaces import BaseRenderer, BaseInputHandler
+from typing import Callable, List
 
 
 class RaycastingEngine:
-    def __init__(self, config: EngineConfig):
+    def __init__(self, config: EngineConfig, backend: str = "pygame"):
         self.config = config
         self.map = GameMap(config.map_path)
         self.player = Player(self.map.start_position)
-        self.renderer = Renderer(self.map, self.player, config)
-        self.input_handler = InputHandler(self.player)
+
+        # Dynamically select backend
+        if backend == "pygame":
+            from .pygame_backend import PygameRenderer, PygameInputHandler
+            self.renderer: BaseRenderer = PygameRenderer(self.map, self.player, config)
+            self.input_handler: BaseInputHandler = PygameInputHandler(self.player)
+        # Future: add elif blocks for other backends (pyglet, moderngl, etc.)
+        else:
+            raise ValueError(f"Unknown backend: {backend}")
+
         self.running = True
+        self.framerate = getattr(config, "framerate", 60)
+
+        # Hooks for plugins and custom logic
+        self.pre_update_hooks: List[Callable[[], None]] = []
+        self.post_update_hooks: List[Callable[[], None]] = []
+        self.pre_render_hooks: List[Callable[[], None]] = []
+        self.post_render_hooks: List[Callable[[], None]] = []
+        self.event_handlers: List[Callable] = []
+
+    def register_pre_update(self, func: Callable[[], None]):
+        self.pre_update_hooks.append(func)
+
+    def register_post_update(self, func: Callable[[], None]):
+        self.post_update_hooks.append(func)
+
+    def register_pre_render(self, func: Callable[[], None]):
+        self.pre_render_hooks.append(func)
+
+    def register_post_render(self, func: Callable[[], None]):
+        self.post_render_hooks.append(func)
+
+    def register_event_handler(self, func: Callable):
+        self.event_handlers.append(func)
 
     def run(self):
         """
         Main engine loop: handles input, updates game state, renders frames.
+        Supports plugin hooks and custom event handlers.
         """
-        while self.running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
+        try:
+            while self.running:
+                # Event handling (backend-specific)
+                if hasattr(self.input_handler, "process_events"):
+                    for event in self.input_handler.process_events():
+                        if getattr(event, "type", None) == "QUIT":
+                            self.running = False
+                        for handler in self.event_handlers:
+                            handler(event)
 
-            self.input_handler.process_input()
-            self.player.update()
-            self.renderer.render_frame()
+                for hook in self.pre_update_hooks:
+                    hook()
 
-            # Update the display and cap the framerate
-            pygame.display.flip()
-            self.renderer.clock.tick(60)  # 60 FPS
+                self.input_handler.process_input()
+                self.player.update()
 
-        pygame.quit()
+                for hook in self.post_update_hooks:
+                    hook()
+
+                for hook in self.pre_render_hooks:
+                    hook()
+
+                self.renderer.render_frame()
+
+                for hook in self.post_render_hooks:
+                    hook()
+
+                self.renderer.flip()
+                self.renderer.tick(self.framerate)
+
+        except Exception as e:
+            print(f"Engine encountered an error: {e}")
+        finally:
+            # Backend-specific cleanup if needed
+            if hasattr(self.renderer, "cleanup"):
+                self.renderer.cleanup()
