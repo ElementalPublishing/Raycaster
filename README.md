@@ -35,38 +35,52 @@ A modular, developer-friendly Python raycasting engine template for retro-style 
 ```
 raycaster/
 │
-├── backend/                # (Optional) Native or performance-critical modules
-│   └── ...
-├── core/                   # Main engine logic and orchestration
+├── backend/                      # Performance-critical routines (Cython only)
+│   ├── __init__.py               # Backend interface/loader
+│   ├── cython_backend.pyx        # Cython backend (compiled for speed)
+│   └── api.py                    # Python API for backend (defines interface, docstrings)
+│
+├── core/                         # Main engine logic and orchestration
+│   ├── __init__.py
 │   ├── engine.py
-│   ├── renderer.py         # Raycasting renderer (plugin-ready, multi-core, overrideable)
+│   ├── renderer.py
 │   ├── map.py
 │   ├── player.py
 │   ├── input.py
 │   ├── config.py
 │   └── events.py
-├── plugins/                # Example and custom renderer plugins
+│
+├── plugins/                      # Example and custom renderer plugins
 │   ├── __init__.py
 │   └── example_plugin.py
-├── assets/                 # Maps, textures, audio, etc.
+│
+├── assets/                       # Maps, textures, audio, etc.
 │   ├── maps/
 │   │   └── example.json
 │   ├── textures/
 │   ├── audio/
 │   └── ...
-├── shared/                 # Utilities, math, helpers
+│
+├── shared/                       # Utilities, math, helpers
+│   ├── __init__.py
 │   ├── utils.py
 │   └── math.py
-├── ui/                     # UI, HUD, menus, overlays
+│
+├── ui/                           # UI, HUD, menus, overlays
+│   ├── __init__.py
 │   ├── hud.py
 │   └── menu.py
-├── tests/                  # Unit and integration tests
+│
+├── tests/                        # Unit and integration tests
 │   └── ...
-├── examples/               # Example games, scripts, or demos
+│
+├── examples/                     # Example games, scripts, or demos
 │   └── ...
-├── docs/                   # Documentation, guides, architecture diagrams
+│
+├── docs/                         # Documentation, guides, architecture diagrams
 │   └── ...
-├── main.py                 # Entry point
+│
+├── main.py                       # Entry point
 ├── pyproject.toml
 ├── README.md
 ├── CONTRIBUTING.md
@@ -74,9 +88,28 @@ raycaster/
 └── .gitignore
 ```
 
-- **Modular:** Each subsystem is in its own file/folder for clarity and easy extension.
-- **Plugins:** Drop Python scripts in `plugins/` to add overlays, effects, new renderers, or even fully override rendering.
-- **Assets:** Place maps, textures, and sounds in the `assets/` folder.
+- **backend/**: All performance-critical code is written in Cython (`cython_backend.pyx`). The `api.py` file defines the backend interface and documents how to extend or modify backend routines. Only Cython is supported for backend optimization, making it easy for Python developers to contribute and mod.
+- **core/**: All game logic, orchestration, and engine features remain in Python for maximum flexibility and developer friendliness.
+- **plugins/**: Drop Python scripts in `plugins/` to add overlays, effects, or new renderers.
+- **assets/**: Place maps, textures, and sounds in the `assets/` folder.
+- **shared/**: Utilities and helpers for use across the engine.
+- **ui/**: User interface, HUD, and menu code.
+- **tests/**, **examples/**, **docs/**: For testing, demos, and documentation.
+
+---
+
+## Backend Modding & Extensibility
+
+The backend is designed to be **modular and easy to extend**, inspired by popular moddable games:
+
+- **All backend routines are defined in `backend/api.py`** with clear docstrings and type hints.
+- **Performance-critical implementations are in `cython_backend.pyx`**. Developers can optimize or swap out routines as long as they match the API.
+- **To mod or extend the backend:**  
+  1. Read the API in `backend/api.py`.
+  2. Implement or optimize routines in `cython_backend.pyx`.
+  3. Rebuild the Cython extension (see docs for build instructions).
+
+This approach keeps the backend fast, modular, and accessible for Python developers—no C++ or Rust required!
 
 ---
 
