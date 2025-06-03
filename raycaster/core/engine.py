@@ -41,7 +41,9 @@ class RaycastingEngine:
             )
         # Future: add elif blocks for other backends (pyglet, moderngl, etc.)
         else:
-            raise ValueError(f"Unknown backend: {backend}")
+            raise ValueError(
+                f"Unknown backend: {backend}"
+            )
 
         self.running: bool = True
         self.framerate: int = getattr(config, "framerate", 60)
