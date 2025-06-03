@@ -1,6 +1,6 @@
 import pygame
 
-from .interfaces import BaseRenderer
+from .interfaces import BaseInputHandler, BaseRenderer
 
 
 class PygameRenderer(BaseRenderer):
@@ -31,3 +31,16 @@ class PygameRenderer(BaseRenderer):
 
     def cleanup(self):
         pygame.quit()
+
+
+class PygameInputHandler(BaseInputHandler):
+    def __init__(self, player):
+        self.player = player
+
+    def process_events(self):
+        return pygame.event.get()
+
+    def process_input(self, keys=None):
+        if keys is None:
+            keys = pygame.key.get_pressed()
+        # ...input handling logic...
