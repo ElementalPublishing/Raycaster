@@ -22,9 +22,7 @@ class GameMap:
         if data is not None:
             self._load_from_data(data)
         elif map_path is not None:
-            self._load_from_file(
-                map_path
-            )
+            self._load_from_file(map_path)
         else:
             raise ValueError("Must provide either map_path or data.")
 
@@ -47,11 +45,6 @@ class GameMap:
         Handles out-of-bounds gracefully (returns True for out-of-bounds).
         """
         xi, yi = int(x), int(y)
-        if (
-            yi < 0
-            or yi >= len(self.map_data)
-            or xi < 0
-            or xi >= len(self.map_data[0])
-        ):
+        if yi < 0 or yi >= len(self.map_data) or xi < 0 or xi >= len(self.map_data[0]):
             return True  # Treat out-of-bounds as wall
         return self.map_data[yi][xi] > 0

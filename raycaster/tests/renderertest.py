@@ -33,18 +33,14 @@ class DummyPlugin:
 
 
 def test_renderer_init_headless():
-    renderer = Renderer(
-        DummyMap(), DummyPlayer(), DummyConfig(), headless=True
-    )
+    renderer = Renderer(DummyMap(), DummyPlayer(), DummyConfig(), headless=True)
     assert renderer.screen.get_width() == 32
     assert renderer.screen.get_height() == 32
     assert isinstance(renderer.plugins, list)
 
 
 def test_plugin_hooks(monkeypatch):
-    renderer = Renderer(
-        DummyMap(), DummyPlayer(), DummyConfig(), headless=True
-    )
+    renderer = Renderer(DummyMap(), DummyPlayer(), DummyConfig(), headless=True)
     plugin = DummyPlugin()
     renderer.register_plugin(plugin)
 
@@ -57,9 +53,7 @@ def test_plugin_hooks(monkeypatch):
 
 
 def test_plugin_post_render(monkeypatch):
-    renderer = Renderer(
-        DummyMap(), DummyPlayer(), DummyConfig(), headless=True
-    )
+    renderer = Renderer(DummyMap(), DummyPlayer(), DummyConfig(), headless=True)
     plugin = DummyPlugin()
     # Only implement post_render for this test
     plugin.render_override = lambda renderer: False

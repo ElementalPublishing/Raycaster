@@ -21,24 +21,18 @@ class RaycastingEngine:
     def __init__(self, config: EngineConfig, backend: str = "pygame"):
         self.config = config
         self.map = GameMap(config.map_path)
-        self.player = Player(
-            self.map.start_position
-        )
+        self.player = Player(self.map.start_position)
 
         # Dynamically select backend
         if backend == "pygame":
             from .pygame_backend import PygameInputHandler, PygameRenderer
 
-            self.renderer: BaseRenderer = PygameRenderer(
-                self.map, self.player, config
-            )
-            self.input_handler: Optional[BaseInputHandler] = (
-                PygameInputHandler(self.player)
+            self.renderer: BaseRenderer = PygameRenderer(self.map, self.player, config)
+            self.input_handler: Optional[BaseInputHandler] = PygameInputHandler(
+                self.player
             )
         elif backend == "renderer":
-            self.renderer: BaseRenderer = Renderer(
-                self.map, self.player, config
-            )
+            self.renderer: BaseRenderer = Renderer(self.map, self.player, config)
             self.input_handler: Optional[BaseInputHandler] = (
                 None  # Set this to your input handler if needed
             )
@@ -92,9 +86,7 @@ class RaycastingEngine:
         try:
             while self.running:
                 # Event handling (backend-specific)
-                if self.input_handler and hasattr(
-                    self.input_handler, "process_events"
-                ):
+                if self.input_handler and hasattr(self.input_handler, "process_events"):
                     for event in self.input_handler.process_events():
                         if getattr(event, "type", None) == "QUIT":
                             self.running = False
@@ -110,9 +102,7 @@ class RaycastingEngine:
                     except Exception as e:
                         print(f"[Engine] Pre-update hook error: {e}")
 
-                if self.input_handler and hasattr(
-                    self.input_handler, "process_input"
-                ):
+                if self.input_handler and hasattr(self.input_handler, "process_input"):
                     try:
                         self.input_handler.process_input()
                     except Exception as e:

@@ -27,10 +27,7 @@ class InputHandler:
             keys = pygame.key.get_pressed()
 
         # Example movement controls (customize as needed)
-        if (
-            hasattr(self.player, "move_forward")
-            and keys[pygame.K_w]
-        ):
+        if hasattr(self.player, "move_forward") and keys[pygame.K_w]:
             self.player.move_forward()
         if hasattr(self.player, "move_backward") and keys[pygame.K_s]:
             self.player.move_backward()
