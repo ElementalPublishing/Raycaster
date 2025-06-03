@@ -4,7 +4,8 @@ from typing import Any
 class RendererPlugin:
     """
     Base class for renderer plugins.
-    Plugins can override pre_render, post_render, and render_override to inject custom logic.
+    Plugins can override pre_render, post_render, and render_override
+    to inject custom logic.
     """
 
     def pre_render(self, renderer: Any) -> None:

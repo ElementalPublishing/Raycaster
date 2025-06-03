@@ -25,15 +25,33 @@ class InputHandler:
             keys = pygame.key.get_pressed()
 
         # Example movement controls (customize as needed)
-        if hasattr(self.player, "move_forward") and keys[pygame.K_w]:
+        if (
+            hasattr(self.player, "move_forward")
+            and keys[pygame.K_w]
+        ):
             self.player.move_forward()
-        if hasattr(self.player, "move_backward") and keys[pygame.K_s]:
+        if (
+            hasattr(self.player, "move_backward")
+            and keys[pygame.K_s]
+        ):
             self.player.move_backward()
-        if hasattr(self.player, "strafe_left") and keys[pygame.K_a]:
+        if (
+            hasattr(self.player, "strafe_left")
+            and keys[pygame.K_a]
+        ):
             self.player.strafe_left()
-        if hasattr(self.player, "strafe_right") and keys[pygame.K_d]:
+        if (
+            hasattr(self.player, "strafe_right")
+            and keys[pygame.K_d]
+        ):
             self.player.strafe_right()
-        if hasattr(self.player, "turn_left") and keys[pygame.K_LEFT]:
+        if (
+            hasattr(self.player, "turn_left")
+            and keys[pygame.K_LEFT]
+        ):
             self.player.turn_left()
-        if hasattr(self.player, "turn_right") and keys[pygame.K_RIGHT]:
+        if (
+            hasattr(self.player, "turn_right")
+            and keys[pygame.K_RIGHT]
+        ):
             self.player.turn_right()

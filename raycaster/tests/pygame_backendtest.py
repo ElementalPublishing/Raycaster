@@ -1,6 +1,5 @@
 import os
 
-import pytest
 
 from raycaster.core.pygame_backend import PygameInputHandler, PygameRenderer
 

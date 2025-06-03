@@ -20,7 +20,9 @@ class RaycastingEngine:
     def __init__(self, config: EngineConfig, backend: str = "pygame"):
         self.config = config
         self.map = GameMap(config.map_path)
-        self.player = Player(self.map.start_position)
+        self.player = Player(
+            self.map.start_position
+        )
 
         # Dynamically select backend
         if backend == "pygame":

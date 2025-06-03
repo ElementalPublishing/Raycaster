@@ -68,7 +68,8 @@ def main():
     try:
         engine = RaycastingEngine(config, backend=backend)
         print(
-            f"Starting Raycaster Engine at {width}x{height} with map {args.map} using backend '{backend}'"
+            f"Starting Raycaster Engine at {width}x{height} with map {args.map} "
+            f"using backend '{backend}'"
         )
         engine.run()
     except Exception as e:

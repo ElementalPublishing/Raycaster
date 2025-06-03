@@ -4,12 +4,14 @@ GameMap: handles map data, loading, and collision logic.
 
 import json
 import os
-from typing import Any, List, Optional, Tuple
+from typing import Optional  # Removed unused Any, List, Tuple
 
 
 class GameMap:
     def __init__(
-        self, map_path: Optional[str] = None, data: Optional[dict] = None
+        self,
+        map_path: Optional[str] = None,
+        data: Optional[dict] = None,
     ):
         """
         Initialize GameMap from a file path or directly from data (for testing).
@@ -17,7 +19,9 @@ class GameMap:
         if data is not None:
             self._load_from_data(data)
         elif map_path is not None:
-            self._load_from_file(map_path)
+            self._load_from_file(
+                map_path
+            )
         else:
             raise ValueError("Must provide either map_path or data.")
 

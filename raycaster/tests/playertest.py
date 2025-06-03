@@ -1,5 +1,3 @@
-import pytest
-
 from raycaster.core.player import Player
 
 

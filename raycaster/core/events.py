@@ -1,8 +1,9 @@
 """
-Event system: allows registering and dispatching custom events for plugins and engine hooks.
+Event system: allows registering and dispatching custom events
+for plugins and engine hooks.
 """
 
-from typing import Any, Callable, Dict, List, Optional
+from typing import Callable, Dict, List, Optional  # Removed unused Any
 
 
 class Event:
@@ -37,7 +38,9 @@ class EventDispatcher:
         """
         if event_name in self.listeners:
             self.listeners[event_name] = [
-                l for l in self.listeners[event_name] if l != listener
+                registered_listener
+                for registered_listener in self.listeners[event_name]
+                if registered_listener != listener
             ]
 
     def clear(self):
@@ -59,6 +62,7 @@ class EventDispatcher:
                 count += 1
             except Exception as e:
                 print(
-                    f"[EventDispatcher] Error in listener for '{event_name}': {e}"
+                    f"[EventDispatcher] Error in listener for "
+                    f"'{event_name}': {e}"
                 )
         return count
