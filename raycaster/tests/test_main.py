@@ -1,9 +1,12 @@
 import sys
 import pytest
 
+
 def test_main_valid_args(monkeypatch, capsys):
     # Simulate command-line arguments
-    monkeypatch.setattr(sys, "argv", ["main.py", "--resolution", "800x600", "--map", "testmap.json"])
+    monkeypatch.setattr(
+        sys, "argv", ["main.py", "--resolution", "800x600", "--map", "testmap.json"]
+    )
     # Import main module fresh for each test
     import raycaster.main as main_mod
 
@@ -12,10 +15,12 @@ def test_main_valid_args(monkeypatch, capsys):
 
     # Dummy engine to capture calls
     called = {}
+
     class DummyEngine:
         def __init__(self, config, backend):
             called["config"] = config
             called["backend"] = backend
+
         def run(self):
             called["ran"] = True
 
@@ -29,9 +34,13 @@ def test_main_valid_args(monkeypatch, capsys):
     assert called["config"].map_path == "testmap.json"
     assert called["ran"]
 
+
 def test_main_invalid_resolution(monkeypatch, capsys):
-    monkeypatch.setattr(sys, "argv", ["main.py", "--resolution", "bad", "--map", "testmap.json"])
+    monkeypatch.setattr(
+        sys, "argv", ["main.py", "--resolution", "bad", "--map", "testmap.json"]
+    )
     import raycaster.main as main_mod
+
     monkeypatch.setattr(main_mod, "select_backend", lambda: "pygame")
     monkeypatch.setattr(main_mod, "RaycastingEngine", lambda *a, **kw: None)
 

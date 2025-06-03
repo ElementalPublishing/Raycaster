@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class BaseRenderer(ABC):
     """
     Abstract base class for all renderer backends.
@@ -23,6 +24,7 @@ class BaseRenderer(ABC):
     def cleanup(self):
         """Optional: Clean up resources (override if needed)."""
         pass
+
 
 class BaseInputHandler(ABC):
     """

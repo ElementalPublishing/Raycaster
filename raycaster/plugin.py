@@ -1,5 +1,6 @@
 from typing import Any
 
+
 class RendererPlugin:
     """
     Base class for renderer plugins.

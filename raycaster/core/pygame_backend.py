@@ -1,10 +1,12 @@
 import pygame
 from .interfaces import BaseRenderer, BaseInputHandler
 
+
 class PygameRenderer(BaseRenderer):
     def __init__(self, map_obj, player, config, headless: bool = False):
         # Allow headless mode for CI/testing (no window)
         import os
+
         if headless:
             os.environ["SDL_VIDEODRIVER"] = "dummy"
         pygame.init()
@@ -28,6 +30,7 @@ class PygameRenderer(BaseRenderer):
 
     def cleanup(self):
         pygame.quit()
+
 
 class PygameInputHandler(BaseInputHandler):
     def __init__(self, player):

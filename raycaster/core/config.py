@@ -11,7 +11,7 @@ class EngineConfig:
         resolution: Tuple[int, int] = (640, 480),
         fov: float = 60.0,
         map_path: str = "assets/maps/basic_map.json",
-        **kwargs: Any
+        **kwargs: Any,
     ):
         if (
             not isinstance(resolution, tuple)

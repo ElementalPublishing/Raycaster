@@ -42,7 +42,10 @@ def main():
     )
     parser.add_argument("--fps", action="store_true", help="Show FPS counter")
     parser.add_argument(
-        "--backend", type=str, choices=["pygame", "renderer"], help="Backend to use (overrides GUI prompt)"
+        "--backend",
+        type=str,
+        choices=["pygame", "renderer"],
+        help="Backend to use (overrides GUI prompt)",
     )
     args = parser.parse_args()
 
@@ -55,10 +58,14 @@ def main():
         print("Invalid resolution format. Use WIDTHxHEIGHT, e.g., 800x600.")
         return
 
-    config = EngineConfig(resolution=(width, height), map_path=args.map, show_fps=args.fps)
+    config = EngineConfig(
+        resolution=(width, height), map_path=args.map, show_fps=args.fps
+    )
     try:
         engine = RaycastingEngine(config, backend=backend)
-        print(f"Starting Raycaster Engine at {width}x{height} with map {args.map} using backend '{backend}'")
+        print(
+            f"Starting Raycaster Engine at {width}x{height} with map {args.map} using backend '{backend}'"
+        )
         engine.run()
     except Exception as e:
         print(f"Failed to start engine: {e}")

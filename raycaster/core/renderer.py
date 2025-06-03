@@ -24,7 +24,13 @@ def raycast_column(args):
 
 
 class Renderer:
-    def __init__(self, game_map: GameMap, player: Player, config: EngineConfig, headless: bool = False):
+    def __init__(
+        self,
+        game_map: GameMap,
+        player: Player,
+        config: EngineConfig,
+        headless: bool = False,
+    ):
         self.game_map = game_map
         self.player = player
         self.config = config
@@ -50,7 +56,9 @@ class Renderer:
         # Check if any plugin wants to override rendering
         for plugin in self.plugins:
             try:
-                if hasattr(plugin, "render_override") and callable(plugin.render_override):
+                if hasattr(plugin, "render_override") and callable(
+                    plugin.render_override
+                ):
                     if plugin.render_override(self):
                         # If plugin returns True, skip default rendering
                         return

@@ -4,18 +4,22 @@ Event system: allows registering and dispatching custom events for plugins and e
 
 from typing import Callable, Dict, List, Any, Optional
 
+
 class Event:
     """
     Represents a generic event.
     """
+
     def __init__(self, name: str, data: Optional[dict] = None):
         self.name = name
         self.data = data or {}
+
 
 class EventDispatcher:
     """
     Manages event listeners and dispatches events to them.
     """
+
     def __init__(self):
         self.listeners: Dict[str, List[Callable[[Event], None]]] = {}
 

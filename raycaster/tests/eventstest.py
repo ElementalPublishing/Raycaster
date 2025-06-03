@@ -1,9 +1,11 @@
 from raycaster.core.events import Event, EventDispatcher
 
+
 def test_event_creation():
     e = Event("test_event", {"foo": 123})
     assert e.name == "test_event"
     assert e.data["foo"] == 123
+
 
 def test_register_and_dispatch():
     dispatcher = EventDispatcher()
@@ -19,6 +21,7 @@ def test_register_and_dispatch():
     assert called["event"].data["bar"] == 456
     assert count == 1
 
+
 def test_unregister():
     dispatcher = EventDispatcher()
     called = {}
@@ -30,6 +33,7 @@ def test_unregister():
     dispatcher.unregister("evt", listener)
     dispatcher.dispatch("evt")
     assert "event" not in called
+
 
 def test_clear():
     dispatcher = EventDispatcher()
@@ -43,18 +47,23 @@ def test_clear():
     dispatcher.dispatch("evt")
     assert "event" not in called
 
+
 def test_multiple_listeners():
     dispatcher = EventDispatcher()
     calls = []
 
-    def l1(event): calls.append("l1")
-    def l2(event): calls.append("l2")
+    def l1(event):
+        calls.append("l1")
+
+    def l2(event):
+        calls.append("l2")
 
     dispatcher.register("evt", l1)
     dispatcher.register("evt", l2)
     count = dispatcher.dispatch("evt")
     assert "l1" in calls and "l2" in calls
     assert count == 2
+
 
 def test_listener_exception_does_not_break_dispatch(capsys):
     dispatcher = EventDispatcher()

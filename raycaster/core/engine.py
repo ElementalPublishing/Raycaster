@@ -24,11 +24,16 @@ class RaycastingEngine:
         # Dynamically select backend
         if backend == "pygame":
             from .pygame_backend import PygameRenderer, PygameInputHandler
+
             self.renderer: BaseRenderer = PygameRenderer(self.map, self.player, config)
-            self.input_handler: Optional[BaseInputHandler] = PygameInputHandler(self.player)
+            self.input_handler: Optional[BaseInputHandler] = PygameInputHandler(
+                self.player
+            )
         elif backend == "renderer":
             self.renderer: BaseRenderer = Renderer(self.map, self.player, config)
-            self.input_handler: Optional[BaseInputHandler] = None  # Set this to your input handler if needed
+            self.input_handler: Optional[BaseInputHandler] = (
+                None  # Set this to your input handler if needed
+            )
         # Future: add elif blocks for other backends (pyglet, moderngl, etc.)
         else:
             raise ValueError(f"Unknown backend: {backend}")

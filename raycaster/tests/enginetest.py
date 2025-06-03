@@ -2,38 +2,68 @@ import pytest
 from raycaster.core.engine import RaycastingEngine
 from raycaster.core.config import EngineConfig
 
+
 class DummyMap:
     start_position = (0, 0)
 
+
 class DummyPlayer:
-    def __init__(self, pos): pass
-    def update(self): self.updated = True
+    def __init__(self, pos):
+        pass
+
+    def update(self):
+        self.updated = True
+
 
 class DummyRenderer:
-    def __init__(self, *a, **kw): pass
-    def render_frame(self): self.rendered = True
-    def flip(self): self.flipped = True
-    def tick(self, framerate): self.ticked = framerate
-    def cleanup(self): self.cleaned = True
+    def __init__(self, *a, **kw):
+        pass
+
+    def render_frame(self):
+        self.rendered = True
+
+    def flip(self):
+        self.flipped = True
+
+    def tick(self, framerate):
+        self.ticked = framerate
+
+    def cleanup(self):
+        self.cleaned = True
+
 
 class DummyInputHandler:
-    def __init__(self, player): pass
-    def process_events(self): return []
-    def process_input(self): self.processed = True
+    def __init__(self, player):
+        pass
+
+    def process_events(self):
+        return []
+
+    def process_input(self):
+        self.processed = True
+
 
 def test_engine_init_pygame(monkeypatch):
     # Patch GameMap, Player, and backend classes
     monkeypatch.setattr("raycaster.core.engine.GameMap", lambda path: DummyMap())
     monkeypatch.setattr("raycaster.core.engine.Player", lambda pos: DummyPlayer(pos))
-    class DummyPygameRenderer(DummyRenderer): pass
-    class DummyPygameInputHandler(DummyInputHandler): pass
+
+    class DummyPygameRenderer(DummyRenderer):
+        pass
+
+    class DummyPygameInputHandler(DummyInputHandler):
+        pass
+
     monkeypatch.setattr("raycaster.core.engine.PygameRenderer", DummyPygameRenderer)
-    monkeypatch.setattr("raycaster.core.engine.PygameInputHandler", DummyPygameInputHandler)
+    monkeypatch.setattr(
+        "raycaster.core.engine.PygameInputHandler", DummyPygameInputHandler
+    )
 
     config = EngineConfig(resolution=(64, 64), map_path="dummy.json")
     engine = RaycastingEngine(config, backend="pygame")
     assert isinstance(engine.renderer, DummyRenderer)
     assert isinstance(engine.input_handler, DummyInputHandler)
+
 
 def test_engine_init_renderer(monkeypatch):
     monkeypatch.setattr("raycaster.core.engine.GameMap", lambda path: DummyMap())
@@ -45,12 +75,14 @@ def test_engine_init_renderer(monkeypatch):
     assert isinstance(engine.renderer, DummyRenderer)
     assert engine.input_handler is None
 
+
 def test_engine_init_invalid_backend(monkeypatch):
     monkeypatch.setattr("raycaster.core.engine.GameMap", lambda path: DummyMap())
     monkeypatch.setattr("raycaster.core.engine.Player", lambda pos: DummyPlayer(pos))
     config = EngineConfig(resolution=(64, 64), map_path="dummy.json")
     with pytest.raises(ValueError):
         RaycastingEngine(config, backend="notarealbackend")
+
 
 def test_hook_registration_and_error_handling(monkeypatch, capsys):
     monkeypatch.setattr("raycaster.core.engine.GameMap", lambda path: DummyMap())
@@ -72,6 +104,7 @@ def test_hook_registration_and_error_handling(monkeypatch, capsys):
     for hook in engine.post_update_hooks:
         hook()
     assert called["pre"] and called["post"]
+
 
 def test_cleanup_called(monkeypatch):
     monkeypatch.setattr("raycaster.core.engine.GameMap", lambda path: DummyMap())
