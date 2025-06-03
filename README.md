@@ -228,6 +228,18 @@ This project is licensed under the MIT License. See [LICENSE](../LICENSE) for de
 
 ## Changelog
 
+### v1.0.0
+
+- Major architecture refactor for modularity and extensibility.
+- Full test coverage for engine, renderer, plugins, input, map, config, events, interfaces, and main entry point.
+- Plugin and event systems for easy extension and modding.
+- Headless mode for CI and automated testing.
+- Improved error handling and validation everywhere.
+- Added developer tooling: black, isort, mypy, flake8, pytest, pre-commit.
+- CLI improvements: backend selection, resolution, FPS, and map path.
+- All code now uses type hints and docstrings.
+- Ready for community contributions and open source growth!
+
 ### v0.11.1
 - Cleaned up and clarified imports across all core modules for maintainability.
 - Updated `main.py` to only import what is needed and to match new engine/renderer structure.
