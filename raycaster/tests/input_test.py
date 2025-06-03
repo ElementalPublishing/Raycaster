@@ -24,12 +24,12 @@ class DummyPlayer:
         self.actions.append("turn_right")
 
 
-def make_keys(pressed_indices, length=300):
-    # Ensure the list is long enough for the highest key code
-    if pressed_indices:
-        max_index = max(pressed_indices)
-        if length <= max_index:
-            length = max_index + 1
+def make_keys(pressed_indices, length=None):
+    required_keys = [119, 115, 97, 100, 276, 275]  # K_w, K_s, K_a, K_d, K_LEFT, K_RIGHT
+    all_indices = list(pressed_indices) + required_keys
+    max_index = max(all_indices) if all_indices else 0
+    if length is None or length <= max_index:
+        length = max_index + 1
     keys = [False] * length
     for idx in pressed_indices:
         keys[idx] = True

@@ -1,4 +1,4 @@
-from raycaster.plugin import RendererPlugin
+from raycaster.core.plugin import RendererPlugin
 
 
 class DummyRenderer:

@@ -82,3 +82,10 @@ def test_listener_exception_does_not_break_dispatch(capsys):
     assert count == 2
     out = capsys.readouterr().out
     assert "Error in listener" in out
+
+for listener in self.listeners.get(event_name, []):
+    count += 1
+    try:
+        listener(event)
+    except Exception as e:
+        print(f"[EventDispatcher] Error in listener for '{event_name}': {e}")

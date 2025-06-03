@@ -55,9 +55,12 @@ def test_engine_init_pygame(monkeypatch):
     class DummyPygameInputHandler(DummyInputHandler):
         pass
 
-    monkeypatch.setattr("raycaster.core.engine.PygameRenderer", DummyPygameRenderer)
+    # Patch the actual backend module, not engine
     monkeypatch.setattr(
-        "raycaster.core.engine.PygameInputHandler", DummyPygameInputHandler
+        "raycaster.core.pygame_backend.PygameRenderer", DummyPygameRenderer
+    )
+    monkeypatch.setattr(
+        "raycaster.core.pygame_backend.PygameInputHandler", DummyPygameInputHandler
     )
 
     config = EngineConfig(resolution=(64, 64), map_path="dummy.json")
@@ -116,3 +119,26 @@ def test_cleanup_called(monkeypatch):
     engine.renderer.cleaned = False
     engine.renderer.cleanup()
     assert engine.renderer.cleaned
+
+
+def test_event_dispatcher_error_handling(monkeypatch):
+    monkeypatch.setattr("raycaster.core.engine.GameMap", lambda path: DummyMap())
+    monkeypatch.setattr("raycaster.core.engine.Player", lambda pos: DummyPlayer(pos))
+    monkeypatch.setattr("raycaster.core.engine.Renderer", DummyRenderer)
+    config = EngineConfig(resolution=(64, 64), map_path="dummy.json")
+    engine = RaycastingEngine(config, backend="renderer")
+
+    error_message = None
+
+    def error_listener(event):
+        raise Exception("Listener error")
+
+    engine.register_event_handler("test_event", error_listener)
+
+    # Capture printed output
+    with pytest.raises(Exception):
+        engine.dispatch_event("test_event")
+
+    # Check if the error was printed
+    captured = capsys.readouterr()
+    assert "[EventDispatcher] Error in listener for 'test_event':" in captured.out

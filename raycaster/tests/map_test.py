@@ -1,3 +1,4 @@
+import json
 import pytest
 
 from raycaster.core.map import GameMap
@@ -15,8 +16,8 @@ def test_init_from_data():
 
 def test_init_from_file(tmp_path):
     map_file = tmp_path / "testmap.json"
-    map_content = {"grid": [[1, 1], [0, 1]], "start_position": (0.5, 0.5)}
-    map_file.write_text(str(map_content).replace("'", '"'))
+    map_content = {"grid": [[1, 1], [0, 1]], "start_position": [0.5, 0.5]}
+    map_file.write_text(json.dumps(map_content))
     game_map = GameMap(map_path=str(map_file))
     assert game_map.map_data == map_content["grid"]
     assert game_map.start_position == (0.5, 0.5)

@@ -47,7 +47,7 @@ def test_input_handler(monkeypatch):
     handler = PygameInputHandler(player)
     # Patch pygame.event.get and pygame.key.get_pressed
     monkeypatch.setattr("pygame.event.get", lambda: [])
-    monkeypatch.setattr("pygame.key.get_pressed", lambda: [0] * 300)
+    monkeypatch.setattr("pygame.key.get_pressed", lambda: [0] * 3000)
     events = handler.process_events()
     assert isinstance(events, list)
     handler.process_input()  # Should not raise
