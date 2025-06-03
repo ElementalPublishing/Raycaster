@@ -6,9 +6,25 @@ Allows configuration via command-line arguments and plugin selection.
 import argparse
 from .core.engine import RaycastingEngine
 from .core.config import EngineConfig
+import tkinter as tk
+from tkinter import simpledialog
+
+
+def select_backend():
+    root = tk.Tk()
+    root.withdraw()  # Hide the main window
+    backend = simpledialog.askstring(
+        "Select Backend",
+        "Enter backend to use (pygame/renderer):",
+        initialvalue="pygame",
+    )
+    root.destroy()
+    return backend or "pygame"
 
 
 def main():
+    backend = select_backend()  # <-- Add this line
+
     parser = argparse.ArgumentParser(description="Raycaster Engine")
     parser.add_argument(
         "--resolution",
@@ -29,9 +45,9 @@ def main():
         return
 
     config = EngineConfig(resolution=(width, height), map_path=args.map)
-    engine = RaycastingEngine(config)
+    engine = RaycastingEngine(config, backend=backend)  # <-- Pass backend here
 
-    print(f"Starting Raycaster Engine at {width}x{height} with map {args.map}")
+    print(f"Starting Raycaster Engine at {width}x{height} with map {args.map} using backend '{backend}'")
     engine.run()
 
 

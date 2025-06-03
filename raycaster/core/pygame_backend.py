@@ -16,7 +16,7 @@ class PygameRenderer(BaseRenderer):
     def tick(self, framerate: int):
         self.clock.tick(framerate)
 
-class PygameInputHandler(BaseInputHandler):
+class PygameInputHandler:
     def __init__(self, player):
         self.player = player
 

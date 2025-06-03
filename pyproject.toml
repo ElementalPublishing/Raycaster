@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "raycaster-engine"
-version = "0.11.0"
+version = "0.11.1"
 description = "A modular, developer-friendly Python raycasting engine template for retro-style shooters."
 authors = ["Elemental Publishing <houser2388@gmail.com>"]
 license = "MIT"
