@@ -4,6 +4,27 @@ A modular, developer-friendly Python raycasting engine template for retro-style 
 
 ---
 
+## Versioning
+
+All future versions will strictly follow [Semantic Versioning](https://semver.org/) for all releases:
+
+- **MAJOR** version: Incremented for incompatible API changes (breaking changes).
+- **MINOR** version: Incremented for new, backwards-compatible features.
+- **PATCH** version: Incremented for backwards-compatible bug fixes.
+
+**Examples in this project:**
+
+| Version   | Example Change                                                                 |
+|-----------|-------------------------------------------------------------------------------|
+| MAJOR     | Change `Renderer` constructor signature, breaking all plugins and integrations.|
+| MINOR     | Add a new `save_screenshot()` method to `Renderer` (existing code still works).|
+| PATCH     | Fix a bug in `render_frame()` (e.g., screen wasn’t being cleared before draw). |
+
+**Format:**  
+`MAJOR.MINOR.PATCH` (e.g., `2.1.0`)
+
+---
+
 ## Features
 
 - Cross-platform: Runs on Windows, macOS, and Linux (Python 3.12+)
@@ -206,6 +227,16 @@ This project is licensed under the MIT License. See [LICENSE](../LICENSE) for de
 ---
 
 ## Changelog
+
+### v0.11.1
+- Cleaned up and clarified imports across all core modules for maintainability.
+- Updated `main.py` to only import what is needed and to match new engine/renderer structure.
+- Refactored `engine.py` and `renderer.py` for better modularity and backend selection.
+- Ensured renderer and engine integration is clear and extensible.
+- Updated versioning in `__init__.py` to `0.2.0` (align with semantic versioning if needed).
+- Improved README to better reflect current architecture, usage, and extension points.
+- **Versioning update:** All future versions will strictly follow [Semantic Versioning](https://semver.org/) for clarity and predictability.
+- No breaking changes; all previous features and plugin systems remain compatible.
 
 ### v0.11.0
 - Refactored engine core to support pluggable backends for rendering and input.
