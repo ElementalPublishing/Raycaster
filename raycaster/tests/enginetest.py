@@ -46,8 +46,12 @@ class DummyInputHandler:
 
 def test_engine_init_pygame(monkeypatch):
     # Patch GameMap, Player, and backend classes
-    monkeypatch.setattr("raycaster.core.engine.GameMap", lambda path: DummyMap())
-    monkeypatch.setattr("raycaster.core.engine.Player", lambda pos: DummyPlayer(pos))
+    monkeypatch.setattr(
+        "raycaster.core.engine.GameMap", lambda path: DummyMap()
+    )
+    monkeypatch.setattr(
+        "raycaster.core.engine.Player", lambda pos: DummyPlayer(pos)
+    )
 
     class DummyPygameRenderer(DummyRenderer):
         pass
@@ -55,7 +59,9 @@ def test_engine_init_pygame(monkeypatch):
     class DummyPygameInputHandler(DummyInputHandler):
         pass
 
-    monkeypatch.setattr("raycaster.core.engine.PygameRenderer", DummyPygameRenderer)
+    monkeypatch.setattr(
+        "raycaster.core.engine.PygameRenderer", DummyPygameRenderer
+    )
     monkeypatch.setattr(
         "raycaster.core.engine.PygameInputHandler", DummyPygameInputHandler
     )
@@ -67,8 +73,12 @@ def test_engine_init_pygame(monkeypatch):
 
 
 def test_engine_init_renderer(monkeypatch):
-    monkeypatch.setattr("raycaster.core.engine.GameMap", lambda path: DummyMap())
-    monkeypatch.setattr("raycaster.core.engine.Player", lambda pos: DummyPlayer(pos))
+    monkeypatch.setattr(
+        "raycaster.core.engine.GameMap", lambda path: DummyMap()
+    )
+    monkeypatch.setattr(
+        "raycaster.core.engine.Player", lambda pos: DummyPlayer(pos)
+    )
     monkeypatch.setattr("raycaster.core.engine.Renderer", DummyRenderer)
 
     config = EngineConfig(resolution=(64, 64), map_path="dummy.json")
@@ -78,16 +88,24 @@ def test_engine_init_renderer(monkeypatch):
 
 
 def test_engine_init_invalid_backend(monkeypatch):
-    monkeypatch.setattr("raycaster.core.engine.GameMap", lambda path: DummyMap())
-    monkeypatch.setattr("raycaster.core.engine.Player", lambda pos: DummyPlayer(pos))
+    monkeypatch.setattr(
+        "raycaster.core.engine.GameMap", lambda path: DummyMap()
+    )
+    monkeypatch.setattr(
+        "raycaster.core.engine.Player", lambda pos: DummyPlayer(pos)
+    )
     config = EngineConfig(resolution=(64, 64), map_path="dummy.json")
     with pytest.raises(ValueError):
         RaycastingEngine(config, backend="notarealbackend")
 
 
 def test_hook_registration_and_error_handling(monkeypatch, capsys):
-    monkeypatch.setattr("raycaster.core.engine.GameMap", lambda path: DummyMap())
-    monkeypatch.setattr("raycaster.core.engine.Player", lambda pos: DummyPlayer(pos))
+    monkeypatch.setattr(
+        "raycaster.core.engine.GameMap", lambda path: DummyMap()
+    )
+    monkeypatch.setattr(
+        "raycaster.core.engine.Player", lambda pos: DummyPlayer(pos)
+    )
     monkeypatch.setattr("raycaster.core.engine.Renderer", DummyRenderer)
     config = EngineConfig(resolution=(64, 64), map_path="dummy.json")
     engine = RaycastingEngine(config, backend="renderer")
@@ -96,7 +114,9 @@ def test_hook_registration_and_error_handling(monkeypatch, capsys):
     engine.register_pre_update(lambda: called.update(pre=True))
     engine.register_post_update(lambda: called.update(post=True))
     # Register a hook that raises an error to test error handling
-    engine.register_pre_update(lambda: (_ for _ in ()).throw(Exception("test error")))
+    engine.register_pre_update(
+        lambda: (_ for _ in ()).throw(Exception("test error"))
+    )
     for hook in engine.pre_update_hooks:
         try:
             hook()
@@ -108,8 +128,12 @@ def test_hook_registration_and_error_handling(monkeypatch, capsys):
 
 
 def test_cleanup_called(monkeypatch):
-    monkeypatch.setattr("raycaster.core.engine.GameMap", lambda path: DummyMap())
-    monkeypatch.setattr("raycaster.core.engine.Player", lambda pos: DummyPlayer(pos))
+    monkeypatch.setattr(
+        "raycaster.core.engine.GameMap", lambda path: DummyMap()
+    )
+    monkeypatch.setattr(
+        "raycaster.core.engine.Player", lambda pos: DummyPlayer(pos)
+    )
     monkeypatch.setattr("raycaster.core.engine.Renderer", DummyRenderer)
     config = EngineConfig(resolution=(64, 64), map_path="dummy.json")
     engine = RaycastingEngine(config, backend="renderer")

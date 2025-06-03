@@ -39,7 +39,10 @@ def main():
         help="Screen resolution (e.g., 800x600)",
     )
     parser.add_argument(
-        "--map", type=str, default="assets/maps/basic_map.json", help="Path to map file"
+        "--map",
+        type=str,
+        default="assets/maps/basic_map.json",
+        help="Path to map file",
     )
     parser.add_argument("--fps", action="store_true", help="Show FPS counter")
     parser.add_argument(

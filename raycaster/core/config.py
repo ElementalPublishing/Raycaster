@@ -18,7 +18,9 @@ class EngineConfig:
             or len(resolution) != 2
             or not all(isinstance(x, int) and x > 0 for x in resolution)
         ):
-            raise ValueError("resolution must be a tuple of two positive integers")
+            raise ValueError(
+                "resolution must be a tuple of two positive integers"
+            )
         if not isinstance(fov, (int, float)) or fov <= 0:
             raise ValueError("fov must be a positive number")
         if not isinstance(map_path, str) or not map_path:

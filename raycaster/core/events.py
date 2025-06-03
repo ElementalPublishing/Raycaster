@@ -58,5 +58,7 @@ class EventDispatcher:
                 listener(event)
                 count += 1
             except Exception as e:
-                print(f"[EventDispatcher] Error in listener for '{event_name}': {e}")
+                print(
+                    f"[EventDispatcher] Error in listener for '{event_name}': {e}"
+                )
         return count

@@ -4,7 +4,10 @@ from raycaster.core.map import GameMap
 
 
 def test_init_from_data():
-    data = {"grid": [[1, 1, 1], [1, 0, 1], [1, 1, 1]], "start_position": (1.5, 1.5)}
+    data = {
+        "grid": [[1, 1, 1], [1, 0, 1], [1, 1, 1]],
+        "start_position": (1.5, 1.5),
+    }
     game_map = GameMap(data=data)
     assert game_map.map_data == data["grid"]
     assert game_map.start_position == (1.5, 1.5)

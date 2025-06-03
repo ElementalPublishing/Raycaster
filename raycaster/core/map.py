@@ -8,7 +8,9 @@ from typing import Any, List, Optional, Tuple
 
 
 class GameMap:
-    def __init__(self, map_path: Optional[str] = None, data: Optional[dict] = None):
+    def __init__(
+        self, map_path: Optional[str] = None, data: Optional[dict] = None
+    ):
         """
         Initialize GameMap from a file path or directly from data (for testing).
         """
@@ -38,6 +40,11 @@ class GameMap:
         Handles out-of-bounds gracefully (returns True for out-of-bounds).
         """
         xi, yi = int(x), int(y)
-        if yi < 0 or yi >= len(self.map_data) or xi < 0 or xi >= len(self.map_data[0]):
+        if (
+            yi < 0
+            or yi >= len(self.map_data)
+            or xi < 0
+            or xi >= len(self.map_data[0])
+        ):
             return True  # Treat out-of-bounds as wall
         return self.map_data[yi][xi] > 0

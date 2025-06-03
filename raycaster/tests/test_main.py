@@ -6,7 +6,9 @@ import pytest
 def test_main_valid_args(monkeypatch, capsys):
     # Simulate command-line arguments
     monkeypatch.setattr(
-        sys, "argv", ["main.py", "--resolution", "800x600", "--map", "testmap.json"]
+        sys,
+        "argv",
+        ["main.py", "--resolution", "800x600", "--map", "testmap.json"],
     )
     # Import main module fresh for each test
     import raycaster.main as main_mod
@@ -38,7 +40,9 @@ def test_main_valid_args(monkeypatch, capsys):
 
 def test_main_invalid_resolution(monkeypatch, capsys):
     monkeypatch.setattr(
-        sys, "argv", ["main.py", "--resolution", "bad", "--map", "testmap.json"]
+        sys,
+        "argv",
+        ["main.py", "--resolution", "bad", "--map", "testmap.json"],
     )
     import raycaster.main as main_mod
 
