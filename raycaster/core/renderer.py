@@ -24,11 +24,14 @@ def raycast_column(args):
 
 
 class Renderer:
-    def __init__(self, game_map: GameMap, player: Player, config: EngineConfig):
+    def __init__(self, game_map: GameMap, player: Player, config: EngineConfig, headless: bool = False):
         self.game_map = game_map
         self.player = player
         self.config = config
         self.plugins: list[RendererPlugin] = []
+        # Allow headless mode for CI/testing (no window)
+        if headless:
+            os.environ["SDL_VIDEODRIVER"] = "dummy"
         pygame.init()
         self.screen = pygame.display.set_mode(self.config.resolution)
         pygame.display.set_caption("Raycaster Engine")
@@ -46,15 +49,21 @@ class Renderer:
         """
         # Check if any plugin wants to override rendering
         for plugin in self.plugins:
-            if hasattr(plugin, "render_override") and callable(plugin.render_override):
-                if plugin.render_override(self):
-                    # If plugin returns True, skip default rendering
-                    return
+            try:
+                if hasattr(plugin, "render_override") and callable(plugin.render_override):
+                    if plugin.render_override(self):
+                        # If plugin returns True, skip default rendering
+                        return
+            except Exception as e:
+                print(f"[Renderer] Plugin render_override error: {e}")
 
         # Call pre-render hooks
         for plugin in self.plugins:
-            if hasattr(plugin, "pre_render"):
-                plugin.pre_render(self)
+            try:
+                if hasattr(plugin, "pre_render"):
+                    plugin.pre_render(self)
+            except Exception as e:
+                print(f"[Renderer] Plugin pre_render error: {e}")
 
         width, height = self.config.resolution
         columns = [(x, width) for x in range(width)]
@@ -69,5 +78,12 @@ class Renderer:
 
         # Call post-render hooks
         for plugin in self.plugins:
-            if hasattr(plugin, "post_render"):
-                plugin.post_render(self)
+            try:
+                if hasattr(plugin, "post_render"):
+                    plugin.post_render(self)
+            except Exception as e:
+                print(f"[Renderer] Plugin post_render error: {e}")
+
+    def cleanup(self):
+        """Clean up pygame resources."""
+        pygame.quit()

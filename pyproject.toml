@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "raycaster-engine"
-version = "0.11.1"
+version = "1.0.0"
 description = "A modular, developer-friendly Python raycasting engine template for retro-style shooters."
 authors = ["Elemental Publishing <houser2388@gmail.com>"]
 license = "MIT"
@@ -14,10 +14,8 @@ python = ">=3.9"
 pygame = "*"
 cython = "*"
 numpy = "*"
-# For plugin hot-reloading and dynamic import
 importlib-metadata = { version = "*", python = "<3.10" }
 importlib-resources = "*"
-# For type hints and static analysis
 typing-extensions = "*"
 
 [tool.poetry.scripts]

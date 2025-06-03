@@ -4,28 +4,34 @@ InputHandler: processes user input and updates player actions.
 
 import pygame
 from .player import Player
+from typing import Optional, Sequence
 
 
 class InputHandler:
+    """
+    Handles keyboard (and optionally mouse) input for the player.
+    """
+
     def __init__(self, player: Player):
         self.player = player
 
-    def process_input(self):
+    def process_input(self, keys: Optional[Sequence[bool]] = None):
         """
-        Process keyboard and mouse input using pygame.
+        Process keyboard input using pygame or a provided key state (for testing).
         """
-        keys = pygame.key.get_pressed()
+        if keys is None:
+            keys = pygame.key.get_pressed()
 
         # Example movement controls (customize as needed)
-        if keys[pygame.K_w]:
+        if hasattr(self.player, "move_forward") and keys[pygame.K_w]:
             self.player.move_forward()
-        if keys[pygame.K_s]:
+        if hasattr(self.player, "move_backward") and keys[pygame.K_s]:
             self.player.move_backward()
-        if keys[pygame.K_a]:
+        if hasattr(self.player, "strafe_left") and keys[pygame.K_a]:
             self.player.strafe_left()
-        if keys[pygame.K_d]:
+        if hasattr(self.player, "strafe_right") and keys[pygame.K_d]:
             self.player.strafe_right()
-        if keys[pygame.K_LEFT]:
+        if hasattr(self.player, "turn_left") and keys[pygame.K_LEFT]:
             self.player.turn_left()
-        if keys[pygame.K_RIGHT]:
+        if hasattr(self.player, "turn_right") and keys[pygame.K_RIGHT]:
             self.player.turn_right()
