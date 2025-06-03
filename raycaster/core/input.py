@@ -19,13 +19,18 @@ class InputHandler:
 
     def process_input(self, keys: Optional[Sequence[bool]] = None):
         """
-        Process keyboard input using pygame or a provided key state (for testing).
+        Process keyboard
+        input using pygame
+        or a provided key state (for testing).
         """
         if keys is None:
             keys = pygame.key.get_pressed()
 
         # Example movement controls (customize as needed)
-        if hasattr(self.player, "move_forward") and keys[pygame.K_w]:
+        if (
+            hasattr(self.player, "move_forward")
+            and keys[pygame.K_w]
+        ):
             self.player.move_forward()
         if hasattr(self.player, "move_backward") and keys[pygame.K_s]:
             self.player.move_backward()

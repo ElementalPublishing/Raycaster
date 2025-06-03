@@ -68,7 +68,8 @@ def main():
     try:
         engine = RaycastingEngine(config, backend=backend)
         print(
-            f"Starting Raycaster Engine at {width}x{height} with map {args.map} "
+            "Starting Raycaster Engine at "
+            f"{width}x{height} with map {args.map} "
             f"using backend '{backend}'"
         )
         engine.run()

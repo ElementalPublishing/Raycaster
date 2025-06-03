@@ -14,12 +14,17 @@ class GameMap:
         data: Optional[dict] = None,
     ):
         """
-        Initialize GameMap from a file path or directly from data (for testing).
+        Initialize GameMap from
+        a file path
+        or directly
+        from data (for testing).
         """
         if data is not None:
             self._load_from_data(data)
         elif map_path is not None:
-            self._load_from_file(map_path)
+            self._load_from_file(
+                map_path
+            )
         else:
             raise ValueError("Must provide either map_path or data.")
 
