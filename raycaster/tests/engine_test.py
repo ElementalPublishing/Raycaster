@@ -142,3 +142,4 @@ def test_event_dispatcher_error_handling(monkeypatch):
     # Check if the error was printed
     captured = capsys.readouterr()
     assert "[EventDispatcher] Error in listener for 'test_event':" in captured.out
+

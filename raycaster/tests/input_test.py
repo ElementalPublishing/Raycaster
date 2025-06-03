@@ -1,3 +1,4 @@
+import pygame
 from raycaster.core.input import InputHandler
 
 
@@ -23,13 +24,16 @@ class DummyPlayer:
     def turn_right(self):
         self.actions.append("turn_right")
 
+    def no_action(self):
+        self.actions.append("no_action")
+
 
 def make_keys(pressed_indices, length=None):
-    required_keys = [119, 115, 97, 100, 276, 275]  # K_w, K_s, K_a, K_d, K_LEFT, K_RIGHT
+    # Always include all keys used in InputHandler
+    required_keys = [119, 115, 97, 100, 113, 101]  # K_w, K_s, K_a, K_d, K_q, K_e
     all_indices = list(pressed_indices) + required_keys
     max_index = max(all_indices) if all_indices else 0
-    if length is None or length <= max_index:
-        length = max_index + 1
+    length = max(length or 0, max_index + 1)
     keys = [False] * length
     for idx in pressed_indices:
         keys[idx] = True
@@ -71,7 +75,7 @@ def test_strafe_right(monkeypatch):
 def test_turn_left(monkeypatch):
     player = DummyPlayer()
     handler = InputHandler(player)
-    keys = make_keys([276])  # pygame.K_LEFT == 276
+    keys = make_keys([pygame.K_q])  # pygame.K_q == 113
     handler.process_input(keys)
     assert "turn_left" in player.actions
 
@@ -79,7 +83,7 @@ def test_turn_left(monkeypatch):
 def test_turn_right(monkeypatch):
     player = DummyPlayer()
     handler = InputHandler(player)
-    keys = make_keys([275])  # pygame.K_RIGHT == 275
+    keys = make_keys([pygame.K_e])  # pygame.K_e == 101
     handler.process_input(keys)
     assert "turn_right" in player.actions
 
@@ -89,4 +93,4 @@ def test_no_action(monkeypatch):
     handler = InputHandler(player)
     keys = make_keys([])  # No keys pressed
     handler.process_input(keys)
-    assert player.actions == []
+    assert player.actions == ["no_action"]

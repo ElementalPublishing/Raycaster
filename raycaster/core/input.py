@@ -26,16 +26,31 @@ class InputHandler:
         if keys is None:
             keys = pygame.key.get_pressed()
 
+        def is_pressed(idx):
+            return idx < len(keys) and keys[idx]
+
+        action_taken = False
+
         # Example movement controls (customize as needed)
-        if hasattr(self.player, "move_forward") and keys[pygame.K_w]:
+        if hasattr(self.player, "move_forward") and is_pressed(pygame.K_w):
             self.player.move_forward()
-        if hasattr(self.player, "move_backward") and keys[pygame.K_s]:
+            action_taken = True
+        if hasattr(self.player, "move_backward") and is_pressed(pygame.K_s):
             self.player.move_backward()
-        if hasattr(self.player, "strafe_left") and keys[pygame.K_a]:
+            action_taken = True
+        if hasattr(self.player, "strafe_left") and is_pressed(pygame.K_a):
             self.player.strafe_left()
-        if hasattr(self.player, "strafe_right") and keys[pygame.K_d]:
+            action_taken = True
+        if hasattr(self.player, "strafe_right") and is_pressed(pygame.K_d):
             self.player.strafe_right()
-        if hasattr(self.player, "turn_left") and keys[pygame.K_LEFT]:
+            action_taken = True
+        if hasattr(self.player, "turn_left") and is_pressed(pygame.K_q):
             self.player.turn_left()
-        if hasattr(self.player, "turn_right") and keys[pygame.K_RIGHT]:
+            action_taken = True
+        if hasattr(self.player, "turn_right") and is_pressed(pygame.K_e):
             self.player.turn_right()
+            action_taken = True
+
+        # If no action was taken, optionally call a no-op or log
+        if not action_taken and hasattr(self.player, "no_action"):
+            self.player.no_action()
