@@ -10,6 +10,7 @@ from .interfaces import BaseInputHandler, BaseRenderer
 from .map import GameMap
 from .player import Player
 from .renderer import Renderer
+from .events import EventDispatcher
 
 
 class RaycastingEngine:
@@ -50,6 +51,8 @@ class RaycastingEngine:
         self.post_render_hooks: List[Callable[[], None]] = []
         self.event_handlers: List[Callable] = []
 
+        self.event_dispatcher = EventDispatcher()
+
     def register_pre_update(self, func: Callable[[], None]):
         """Register a function to be called before each update."""
         self.pre_update_hooks.append(func)
@@ -66,9 +69,11 @@ class RaycastingEngine:
         """Register a function to be called after each render."""
         self.post_render_hooks.append(func)
 
-    def register_event_handler(self, func: Callable):
-        """Register a function to handle events."""
-        self.event_handlers.append(func)
+    def register_event_handler(self, event_name, handler):
+        self.event_dispatcher.register(event_name, handler)
+
+    def dispatch_event(self, event_name, data=None):
+        return self.event_dispatcher.dispatch(event_name, data)
 
     def clear_hooks(self):
         """Clear all hooks and event handlers (useful for tests)."""

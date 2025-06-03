@@ -41,8 +41,9 @@ class PygameInputHandler(BaseInputHandler):
         # Return a list of pygame events
         return pygame.event.get()
 
-    def process_input(self):
-        keys = pygame.key.get_pressed()
+    def process_input(self, keys=None):
+        if keys is None:
+            keys = pygame.key.get_pressed()
         # Example: move player if arrow keys pressed (replace with your logic)
         if keys[pygame.K_LEFT]:
             self.player.angle -= 0.1

@@ -3,7 +3,7 @@ Event system: allows registering and dispatching custom events
 for plugins and engine hooks.
 """
 
-from typing import Callable, Dict, List, Optional  # Removed unused Any
+from typing import Callable, Dict, List, Optional
 
 
 class Event:
@@ -22,26 +22,20 @@ class EventDispatcher:
     """
 
     def __init__(self):
-        self.listeners: Dict[str, List[Callable[[Event], None]]] = {}
+        self.listeners: Dict[str, List[Callable]] = {}
 
-    def register(self, event_name: str, listener: Callable[[Event], None]):
+    def register(self, event_name: str, listener: Callable):
         """
         Register a listener for a specific event name.
         """
-        if event_name not in self.listeners:
-            self.listeners[event_name] = []
-        self.listeners[event_name].append(listener)
+        self.listeners.setdefault(event_name, []).append(listener)
 
-    def unregister(self, event_name: str, listener: Callable[[Event], None]):
+    def unregister(self, event_name: str, listener: Callable):
         """
         Unregister a listener from a specific event name.
         """
         if event_name in self.listeners:
-            self.listeners[event_name] = [
-                registered_listener
-                for registered_listener in self.listeners[event_name]
-                if registered_listener != listener
-            ]
+            self.listeners[event_name].remove(listener)
 
     def clear(self):
         """
@@ -57,11 +51,10 @@ class EventDispatcher:
         event = Event(event_name, data)
         count = 0
         for listener in self.listeners.get(event_name, []):
+            count += 1  # Increment before calling the listener
             try:
                 listener(event)
-                count += 1
             except Exception as e:
-                print(
-                    f"[EventDispatcher] Error in listener for " f"'{event_name}': {e}"
-                )
+                print(f"[EventDispatcher] Error in listener for '{event_name}': {e}")
+                # Do not raise, continue to next listener
         return count

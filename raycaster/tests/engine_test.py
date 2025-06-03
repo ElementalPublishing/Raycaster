@@ -121,25 +121,26 @@ def test_cleanup_called(monkeypatch):
     assert engine.renderer.cleaned
 
 
-def test_event_dispatcher_error_handling(monkeypatch):
+def test_event_dispatcher_error_handling(monkeypatch, capsys):
     monkeypatch.setattr("raycaster.core.engine.GameMap", lambda path: DummyMap())
     monkeypatch.setattr("raycaster.core.engine.Player", lambda pos: DummyPlayer(pos))
     monkeypatch.setattr("raycaster.core.engine.Renderer", DummyRenderer)
     config = EngineConfig(resolution=(64, 64), map_path="dummy.json")
     engine = RaycastingEngine(config, backend="renderer")
 
-    error_message = None
+    calls = []
 
     def error_listener(event):
         raise Exception("Listener error")
 
+    def good_listener(event):
+        calls.append("good")
+
     engine.register_event_handler("test_event", error_listener)
+    engine.register_event_handler("test_event", good_listener)
 
-    # Capture printed output
-    with pytest.raises(Exception):
-        engine.dispatch_event("test_event")
-
-    # Check if the error was printed
+    count = engine.dispatch_event("test_event")
+    assert "good" in calls
+    assert count == 2
     captured = capsys.readouterr()
     assert "[EventDispatcher] Error in listener for 'test_event':" in captured.out
-
