@@ -11,6 +11,7 @@ from .config import EngineConfig
 from .map import GameMap
 from .player import Player
 from .plugin import RendererPlugin
+from .baserenderer import BaseRenderer
 
 
 def raycast_column(args):
@@ -25,7 +26,9 @@ def raycast_column(args):
     return x, color
 
 
-class Renderer:
+class Renderer(BaseRenderer):
+    """Default renderer implementation (inherits from BaseRenderer)."""
+
     def __init__(
         self,
         game_map: GameMap,
@@ -33,22 +36,7 @@ class Renderer:
         config: EngineConfig,
         headless: bool = False,
     ):
-        self.game_map = game_map
-        self.player = player
-        self.config = config
-        self.plugins: list[RendererPlugin] = []
-        # Allow headless mode for CI/testing (no window)
-        if headless:
-            os.environ["SDL_VIDEODRIVER"] = "dummy"
-        pygame.init()
-        self.screen = pygame.display.set_mode(self.config.resolution)
-        pygame.display.set_caption("Raycaster Engine")
-        self.clock = pygame.time.Clock()
-        self.num_workers = getattr(config, "num_workers", os.cpu_count() or 1)
-
-    def register_plugin(self, plugin: RendererPlugin):
-        """Register a renderer plugin."""
-        self.plugins.append(plugin)
+        super().__init__(game_map, player, config, headless)
 
     def render_frame(self):
         """
@@ -94,6 +82,3 @@ class Renderer:
             except Exception as e:
                 print(f"[Renderer] Plugin post_render error: {e}")
 
-    def cleanup(self):
-        """Clean up pygame resources."""
-        pygame.quit()

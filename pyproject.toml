@@ -39,10 +39,16 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.black]
-line-length = 88
+line-length = 79
 
 [flake8]
-max-line-length = 88
+max-line-length = 79
 
 [tool.isort]
 profile = "black"
+line_length = 79
+multi_line_output = 3
+
+[tool.mypy]
+ignore_missing_imports = true
+exclude = "raycaster/examples/"

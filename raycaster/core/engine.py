@@ -7,9 +7,7 @@ from typing import Callable, List, Optional
 
 from .config import EngineConfig
 from .events import EventDispatcher
-from .interfaces import BaseInputHandler, BaseRenderer
-from .map import GameMap
-from .player import Player
+from .interfaces import BaseRenderer
 from .renderer import Renderer
 
 
@@ -24,20 +22,19 @@ class RaycastingEngine:
         self.map = GameMap(config.map_path)
         self.player = Player(self.map.start_position)
 
+        # Declare attributes ONCE here
+        self.renderer: BaseRenderer
+        self.input_handler: Optional[BaseInputHandler]
+
         # Dynamically select backend
         if backend == "pygame":
             from .pygame_backend import PygameInputHandler, PygameRenderer
 
-            self.renderer: BaseRenderer = PygameRenderer(self.map, self.player, config)
-            self.input_handler: Optional[BaseInputHandler] = PygameInputHandler(
-                self.player
-            )
+            self.renderer = PygameRenderer(self.map, self.player, config)
+            self.input_handler = PygameInputHandler(self.player)
         elif backend == "renderer":
-            self.renderer: BaseRenderer = Renderer(self.map, self.player, config)
-            self.input_handler: Optional[BaseInputHandler] = (
-                None  # Set this to your input handler if needed
-            )
-        # Future: add elif blocks for other backends (pyglet, moderngl, etc.)
+            self.renderer = Renderer(self.map, self.player, config)
+            self.input_handler = None
         else:
             raise ValueError(f"Unknown backend: {backend}")
 
