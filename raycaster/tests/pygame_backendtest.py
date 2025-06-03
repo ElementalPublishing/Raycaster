@@ -1,7 +1,8 @@
-import pytest
 import os
 
-from raycaster.core.pygame_backend import PygameRenderer, PygameInputHandler
+import pytest
+
+from raycaster.core.pygame_backend import PygameInputHandler, PygameRenderer
 
 
 class DummyMap:

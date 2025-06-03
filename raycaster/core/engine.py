@@ -3,12 +3,13 @@ Main game engine loop and application entry point.
 Supports pluggable backends for rendering and input.
 """
 
+from typing import Callable, List, Optional
+
+from .config import EngineConfig
+from .interfaces import BaseInputHandler, BaseRenderer
 from .map import GameMap
 from .player import Player
-from .config import EngineConfig
-from .interfaces import BaseRenderer, BaseInputHandler
 from .renderer import Renderer
-from typing import Callable, List, Optional
 
 
 class RaycastingEngine:
@@ -23,7 +24,7 @@ class RaycastingEngine:
 
         # Dynamically select backend
         if backend == "pygame":
-            from .pygame_backend import PygameRenderer, PygameInputHandler
+            from .pygame_backend import PygameInputHandler, PygameRenderer
 
             self.renderer: BaseRenderer = PygameRenderer(self.map, self.player, config)
             self.input_handler: Optional[BaseInputHandler] = PygameInputHandler(

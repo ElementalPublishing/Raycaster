@@ -2,9 +2,9 @@
 GameMap: handles map data, loading, and collision logic.
 """
 
-from typing import Tuple, List, Optional, Any
 import json
 import os
+from typing import Any, List, Optional, Tuple
 
 
 class GameMap:

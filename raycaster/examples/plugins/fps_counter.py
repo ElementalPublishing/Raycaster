@@ -1,5 +1,6 @@
-from ..plugin import RendererPlugin
 import time
+
+from ..plugin import RendererPlugin
 
 
 class FPSCounterPlugin(RendererPlugin):

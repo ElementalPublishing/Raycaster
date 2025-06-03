@@ -1,5 +1,6 @@
 import pygame
-from .interfaces import BaseRenderer, BaseInputHandler
+
+from .interfaces import BaseInputHandler, BaseRenderer
 
 
 class PygameRenderer(BaseRenderer):

@@ -1,5 +1,6 @@
 import pytest
-from raycaster.core.interfaces import BaseRenderer, BaseInputHandler
+
+from raycaster.core.interfaces import BaseInputHandler, BaseRenderer
 
 
 def test_base_renderer_abstract_methods():

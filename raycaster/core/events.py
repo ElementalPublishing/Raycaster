@@ -2,7 +2,7 @@
 Event system: allows registering and dispatching custom events for plugins and engine hooks.
 """
 
-from typing import Callable, Dict, List, Any, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 
 class Event:

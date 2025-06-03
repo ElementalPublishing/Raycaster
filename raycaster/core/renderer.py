@@ -3,11 +3,13 @@ Raycasting renderer: handles drawing the scene from the player's perspective.
 """
 
 import os
-import pygame
 from concurrent.futures import ProcessPoolExecutor
+
+import pygame
+
+from .config import EngineConfig
 from .map import GameMap
 from .player import Player
-from .config import EngineConfig
 from .plugin import RendererPlugin
 
 

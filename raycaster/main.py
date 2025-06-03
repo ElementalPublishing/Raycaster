@@ -4,10 +4,11 @@ Allows configuration via command-line arguments and plugin selection.
 """
 
 import argparse
-from .core.engine import RaycastingEngine
-from .core.config import EngineConfig
 import tkinter as tk
 from tkinter import simpledialog
+
+from .core.config import EngineConfig
+from .core.engine import RaycastingEngine
 
 
 def select_backend() -> str:

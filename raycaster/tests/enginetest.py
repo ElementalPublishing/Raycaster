@@ -1,6 +1,7 @@
 import pytest
-from raycaster.core.engine import RaycastingEngine
+
 from raycaster.core.config import EngineConfig
+from raycaster.core.engine import RaycastingEngine
 
 
 class DummyMap:

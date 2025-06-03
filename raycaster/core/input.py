@@ -2,9 +2,11 @@
 InputHandler: processes user input and updates player actions.
 """
 
-import pygame
-from .player import Player
 from typing import Optional, Sequence
+
+import pygame
+
+from .player import Player
 
 
 class InputHandler:

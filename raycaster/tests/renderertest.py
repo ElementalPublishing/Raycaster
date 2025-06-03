@@ -1,4 +1,5 @@
 import pytest
+
 from raycaster.core.renderer import Renderer
 
 
