@@ -1,6 +1,6 @@
 # Raycaster Engine
 
-A modular, developer-friendly Python raycasting engine template for retro-style shooters.
+A modular, developer-friendly Python raycasting engine template initially built for retro-style shooters.
 
 ---
 
@@ -77,7 +77,8 @@ Raycaster/                        # Project root (repo root)
     │   ├── player.py
     │   ├── input.py
     │   ├── config.py
-    │   └── events.py
+    │   ├── events.py
+    │   └── interfaces.py         # Abstract base classes for backends
     │
     ├── plugins/                  # Example and custom renderer plugins
     │   ├── __init__.py
@@ -114,8 +115,8 @@ Raycaster/                        # Project root (repo root)
     └── ...
 ```
 
-- **All configuration and documentation files** (`pyproject.toml`, `README.md`, `CONTRIBUTING.md`, `LICENSE`, `.gitignore`) are in the **project root**.
-- **All code, assets, and engine modules** are inside the `raycaster/` package directory.
+- **All configuration and documentation files** (`pyproject.toml`, README.md, `CONTRIBUTING.md`, `LICENSE`, `.gitignore`) are in the **project root**.
+- **All code, assets, and engine modules** are inside the raycaster package directory.
 - This structure matches your GitHub repository and is ready for packaging and distribution.
 
 ---
@@ -137,7 +138,7 @@ This approach keeps the backend fast, modular, and accessible for Python develop
 
 ## Plugin Rendering Override
 
-The engine now supports **full rendering override by plugins**.  
+The engine supports **full rendering override by plugins**.  
 If a plugin implements a `render_override(renderer)` method and returns `True`, the default rendering is skipped and the plugin takes full control of the frame rendering.
 
 **Example plugin interface:**
