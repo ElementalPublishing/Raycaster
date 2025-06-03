@@ -1,6 +1,6 @@
 import pygame
 
-from .interfaces import BaseInputHandler, BaseRenderer
+from .interfaces import BaseRenderer
 
 
 class PygameRenderer(BaseRenderer):
@@ -31,22 +31,3 @@ class PygameRenderer(BaseRenderer):
 
     def cleanup(self):
         pygame.quit()
-
-
-class PygameInputHandler(BaseInputHandler):
-    def __init__(self, player):
-        self.player = player
-
-    def process_events(self):
-        # Return a list of pygame events
-        return pygame.event.get()
-
-    def process_input(self, keys=None):
-        if keys is None:
-            keys = pygame.key.get_pressed()
-        # Example: move player if arrow keys pressed (replace with your logic)
-        if keys[pygame.K_LEFT]:
-            self.player.angle -= 0.1
-        if keys[pygame.K_RIGHT]:
-            self.player.angle += 0.1
-        # ...your pygame input code...

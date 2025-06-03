@@ -6,11 +6,11 @@ Supports pluggable backends for rendering and input.
 from typing import Callable, List, Optional
 
 from .config import EngineConfig
+from .events import EventDispatcher
 from .interfaces import BaseInputHandler, BaseRenderer
 from .map import GameMap
 from .player import Player
 from .renderer import Renderer
-from .events import EventDispatcher
 
 
 class RaycastingEngine:

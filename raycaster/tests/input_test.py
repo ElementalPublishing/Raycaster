@@ -1,4 +1,5 @@
 import pygame
+
 from raycaster.core.input import InputHandler
 
 

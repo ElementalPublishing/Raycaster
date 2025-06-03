@@ -1,4 +1,5 @@
 import json
+
 import pytest
 
 from raycaster.core.map import GameMap
